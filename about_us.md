@@ -1,0 +1,3 @@
+# About us
+
+**REmatch** is currently being developed by **Kyle Bossonney**, **Vicente Calisto**, **Gustavo Toro**, **Nicolás Van Sint Jan**, and professors [**Cristian Riveros**](https://scholar.google.com/citations?user=wkDO2HIAAAAJ) and [**Domagoj Vrgoč**](https://dvrgoc.ing.puc.cl/), of the [Millenium Institute Foundational Research on Data](https://imfd.cl/en/) and the [School of Engineering of the Pontificia Universidad Católica de Chile](https://www.ing.uc.cl/en/). We thank **Marjorie Bascuñán**, **Oscar Cárcamo**, **Martín de la Fuente**, **Ignacio Pereira**, and **Javier Montoya** for collaborating on earlier versions of this project.

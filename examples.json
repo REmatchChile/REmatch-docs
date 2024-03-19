@@ -1,4 +1,4 @@
 [
-{ "query": "!x{.+}+", doc: "Hello, world", isMultiRegex: true },
-{ "query": "!x{.+}", doc: "Hello, world", isMultiRegex: false },
+{ "query": "!x{.+}+", "doc": "Hello, world", "isMultiRegex": true },
+{ "query": "!x{.+}", "doc": "Hello, world", "isMultiRegex": false },
 ]

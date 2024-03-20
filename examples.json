@@ -1,4 +1,4 @@
 [
-{ "query": "!x{.+}+", "doc": "Hello, world", "isMultiRegex": true, "description": "This is a placeholder" },
-{ "query": "!x{.+}", "doc": "Hello, world", "isMultiRegex": false, "description": "This is a placeholder" }
+{ "query": "!x{.+}+", "doc": "Hello, world", "isMultiRegex": true, "title": "Title of multiregex", "description": "This is a placeholder" },
+{ "query": "!x{.+}", "doc": "Hello, world", "isMultiRegex": false, "title": "Title of regex", "description": "This is a placeholder" }
 ]

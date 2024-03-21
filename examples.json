@@ -7,8 +7,8 @@
   "description": "Capture the parts of dates in RFC3339 DateTime format. Does not validates the data."
 },
 {
-  "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)"
-  "doc": "Puro, Chile, es tu cielo azulado,\\npuras brisas te cruzan también,\\ny tu campo de flores bordado\\nes la copia feliz del Edén.\\nMajestuosa es la blanca montaña\\nque te dio por baluarte el Señor,\\nque te dio por baluarte el Señor,\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\n\\nDulce Patria, recibe los votos\\nCon que Chile en tus aras juró\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.\\nO el asilo contra la opresión."
+  "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)",
+  "doc": "Puro, Chile, es tu cielo azulado,\\npuras brisas te cruzan también,\\ny tu campo de flores bordado\\nes la copia feliz del Edén.\\nMajestuosa es la blanca montaña\\nque te dio por baluarte el Señor,\\nque te dio por baluarte el Señor,\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\n\\nDulce Patria, recibe los votos\\nCon que Chile en tus aras juró\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.",
   "isMultiRegex": true,
   "title": "Match the lines and their words of the national anthem of Chile"
 }

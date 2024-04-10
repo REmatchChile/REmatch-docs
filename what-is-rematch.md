@@ -52,7 +52,7 @@ We note that the logic is equivalent in both extensions: we simply duplicate the
 
 ### Example 3
 
-As our final example we will assume that we want to extract all non empty substrings from our text. The REmatch expression for this is simply (test it [here](https://rematch.cl/?query=%21substring%7B.%2B%7D&doc=You+don%27t+know+about+me+without+you+have+read+a+book+by+the+name+of+The+Adventures+of+Tom+Sawyer+but+that+ain%27t+no+matter.+That+book+was+made+by+Mr+Mark+Twain+and+he+told+the+truth%2C+mainly.+There+was+things+which+he+stretched%2C+but+mainly+he+told+the+truth.+That+is+nothing.+I+never+seen+anybody+but+lied+one+time+or+another%2C+without+it+was+Aunt+Polly+or+the+widow%2C+or+maybe+Mary.+Aunt+Polly-Tom%27s+Aunt+Polly%2C+she+is-and+Mary%2C+and+the+Widow+Douglas+is+all+told+about+in+that+book%2C+which+is+mostly+a+true+book%2C+with+some+stretchers%2C+as+I+said+before.&isMultiRegex=false):
+As our final example we will assume that we want to extract all non empty substrings from our text. The REmatch expression for this is simply (test it [here](https://rematch.cl/?query=%21substring%7B.%2B%7D&doc=You+don%27t+know+about+me+without+you+have+read+a+book+by+the+name+of+The+Adventures+of+Tom+Sawyer+but+that+ain%27t+no+matter.+That+book+was+made+by+Mr+Mark+Twain+and+he+told+the+truth%2C+mainly.+There+was+things+which+he+stretched%2C+but+mainly+he+told+the+truth.+That+is+nothing.+I+never+seen+anybody+but+lied+one+time+or+another%2C+without+it+was+Aunt+Polly+or+the+widow%2C+or+maybe+Mary.+Aunt+Polly-Tom%27s+Aunt+Polly%2C+she+is-and+Mary%2C+and+the+Widow+Douglas+is+all+told+about+in+that+book%2C+which+is+mostly+a+true+book%2C+with+some+stretchers%2C+as+I+said+before.&isMultiRegex=false)):
 
 ```
 !substring{.+}

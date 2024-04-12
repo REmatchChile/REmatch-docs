@@ -31,18 +31,18 @@
   "query": "(^| )!words{(\\w|[\\-'])+}( !words{(\\w|[\\-'])+}){K}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] All k-grams",
-  "isMultiRegex": false,
+  "isMultiRegex": true,
   "description": "Extract all the k-grams from the text (replace the parameter K with a number)."
 },
 {
   "query": "(^| )!words{(\\w|[\\-'])+} !words{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] All 2-grams",
-  "isMultiRegex": false,
+  "isMultiRegex": true,
   "description": "Extract all the 2-grams from the text."
 },
 {
-  "query": "(^| )!words{(\\w|[\\-'])+}([ ,.])",
+  "query": "(^| )!word{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] Get all words",
   "isMultiRegex": false,
@@ -61,5 +61,19 @@
   "title": "[CSV] Fields without spaces and line",
   "isMultiRegex": true,
   "description": "Extract all fields of each line without the aligning spaces."
+},
+{
+  "query": "!motif{G[^EDRKHPFYW].{2}[STAGCN][^P]}",
+  "doc": ">XP_024849117.1 mitogen-activated protein kinase 10 isoform X5 [Bos taurus]\\nMSKSKVDNQFYSVEVGDSTFTVLKRYQNLKPIGSGAQGIVCAAYDAVLDRNVAIKKLSRPFQNQTHAKRAYRELVLMKCVNHKNIISLLNVFTPQKTLEEFQDVYLVMELMDANLCQVIQMELDHERMSYLLYQMLCGIKHLHSAGIIHRDLKPSNIVVKSDCTLKILDFGLARTAGTSFMMTPYVVTRYYRAPEVILGMGYKENVDIWSVGCIMGEMVRHKILFPGRDYIDQWNKVIEQLGTPCPEFMKKLQPTVRNYVENRPKYAGLTFPKLFPDSLFPADSEHNKLKASQARDLLSKMLVIDPAKRISVDDALQHPYINVWYDPAEVEAPPPQIYDKQLDEREHTIEEWKELIYKEVMNSEEKTKNGVVKGQPSPSAQVQP",
+  "title": "[DNA] Motif search of a MAP kinase signature",
+  "isMultiRegex": false,
+  "description": "A motif search for a MAP kinase signature."
+},
+{
+  "query": "!motif{G[^EDRKHPFYW].{2}[STAGCN][^P]}",
+  "doc": ">XP_017210497.1 glutamate [NMDA] receptor subunit epsilon-2 isoform X1 [Danio rerio]\\nMGVGLAMFKGLYLHSSAMLVSLHLSSSPFSDCRVLSFVSLVSSFKLPLYISLLLLSLFFFPTCESRRGGGIGTPTGGMNSQSIISPPHYPPPGVSPVGPPMSPKFAQGLSIAVILVGNSSEVSLSEGLEKEDFLHVPLPPKVELVTMNETDPKSIINRICALMSRNWLQGVVFGDDTDQEAIAQILDFISAQTHIPILGIRGGSSMIMAAKDDHSMFFQFGPSIEQQASVMLNIMEEYDWYIFSIVTTYYPGHQDFVNRIRSTVDNSFVGWELEEVLLLDMSVDDGDSKIQNQMKKLQSPVILLYCTKEEATTIFEVAHSVGLTGYGYTWIVPSLVAGDTDNVPNVFPTGLISVSYDEWDYGLEARVRDAVAIIAMATSTMMLDRGPHTLLKSGCHGAPDKKGSKSGNPNEVLRYLMNVTFEGRNLSFSEDGFQMHPKLVIILLNKERQYERVGKWENGSLAMKYHVWPRFELYSDAEEREDDHLSIVTLEEAPFVIVEDVDPLSGTCMRNTVPCRKQLKLQNLTGDSGIYIKRCCKGFCIDILKKIAKSVKFTYDLYLVTNGKHGKKINGTWNGMVGEVVLKNAHMAVGSLTINEERSEVIDFSVPFIETGISVMVSRSNGTVSPSAFLEPFSADVWVMMFVMLLIVSAVAVFVFEYFSPVGYNRCLADGREPGGPSFTIGKAIWLLWGLVFNNSVPVQNPKGTTSKIMVSVWAFFAVIFLASYTANLAAFMIQEEYVDQVTGLSDKKFQHPNDFSPPFRFGTVPNGSTERNIRNNYKEMHSYMTSFHQKNVNEALHSLKSGKLDAFIYDAAVLNYMAGRDEGCKLVTIGSGYIFATTGYGIAIQKDSGWKRAVDLAILQLFGDGEMEELEALWLTGICHNEKNEVMSSQLDVDNMAGVFYMLGAAMALSLITFIAEHLFYWQLRFCFMGVCSGKPGMTFSISRGIYSCIHGVQIEENKSALNSPSATMKMNMNNTHSNILRLLRTAKNMTSVPGVNGSPHSALDYSHRESAVYDISEHRRSLAGHSDCKPPPYLPEDNMFSDYVSEVERTFGNLHLKDSNLYQDHYLHHHGGSELALGMSGPLPNRPRSLGSASSLEGGYDCDSLGGGVAPIFTTQPRQSLTHRNREKFDLIAGHPTQSSFKSGLPDLYGKFSFKGGASSSGFIAGHDRYCGGGGVGSGGDDGNIRSDVSDISTHTVTYGNLEGHSKRRKQYRDSLKKRPASAKSRREQDEIELGFRRRPHHTIHHHHHHHPATQAHRSATPPVERKSQRGGNCTSYLFRDKENLRDFYVDQFRAKEGASPWDLDLSDAPGMGGGVGLGGGSCGGVVSSGGAGGACTSLVPMEDFLKGKSKKTECKGGMGGGSPGQQGHACWEKGIGGVGGLAGGDWECRSCHSGGVGSGGSKPVCMHGGGGAGGYPAAGGVGGSSGGSGQISSRPSSATCKRCDSCKKPGNLYDISEDNLLLDQIAGKHPLESGKGGGGTGAQTQVQRRKFGPGGKVLRRQHSYDTFVELQKEGAGRMGGFGGGGGASMLPPPRSVSLKDKDRYMEGASPYAQMFEQYAGGERETSYFGDRGKGGGSSFSLFRGGEGGLHRRSVGERDMRDRDRGMMGGGVGGTRGVGTYSLSKSLYPDKVNQNPFIPTFGDDQCLLHGAKSYYIKKQQAQPQQQQTPQQQQQQLLNNSRADFRGSMGVTSYLPASATSGVLSNVAPRFPKELCLGGPLGNHHGGGPSNNKLLSARDGLGMGQGQRPFNGSSNGHVYEKLSSIESDV", 
+  "title": "[DNA] Motif search in zebrafish",
+  "isMultiRegex": false,
+  "description": "N-myristoylation site motif inside a sequence of a glutamate [NMDA] receptor subunit epsilon-2 isoform X1 protein of zebrafish."
 }
 ]

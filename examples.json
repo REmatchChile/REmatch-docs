@@ -16,23 +16,23 @@
 {
   "query": "(^|\\.)!sentence{[^.]*!noun{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "[Literature] Adventures of Huckleberry Finn: Proper nouns in sentences",
+  "title": "[Literature] Proper nouns in sentences",
   "isMultiRegex": false,
   "description": "Extract each proper noun, together with the sentence in which it appears."
 },
 {
   "query": "(^|\\.)!sentence{[^.]*!noun1{[A-Z][a-z]*} [^.]*!noun2{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "[Literature] Adventures of Huckleberry Finn: Pair of proper nouns in sentences",
+  "title": "[Literature] Pair of proper nouns in sentences",
   "isMultiRegex": false,
   "description": "Extract each pair of proper nouns, together with the sentence in which they appear."
 },
 {
-  "query": "!substring{.+}",
+  "query": "(^| )!words{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "[Literature] Adventures of Huckleberry Finn: Get ALL substrings",
+  "title": "[Literature] Get all words",
   "isMultiRegex": false,
-  "description": "Extract ALL the substrings from the text."
+  "description": "Extract all the words from the text."
 },
 {
   "query": "(\\n)!line{[^\"\\n]*!text{\"[^\"]+\"}([^\"\\n]*!text{\"[^\"]+\"})*[^\"\\n]*}(\\n|$)",

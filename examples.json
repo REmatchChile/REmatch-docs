@@ -28,6 +28,20 @@
   "description": "Extract each pair of proper nouns, together with the sentence in which they appear."
 },
 {
+  "query": "(^| )!words{(\\w|[\\-'])+}( !words{(\\w|[\\-'])+}){K}([ ,.])",
+  "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
+  "title": "[Literature] All k-grams",
+  "isMultiRegex": false,
+  "description": "Extract all the k-grams from the text (replace the parameter K with a number)."
+},
+{
+  "query": "(^| )!words{(\\w|[\\-'])+} !words{(\\w|[\\-'])+}([ ,.])",
+  "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
+  "title": "[Literature] All 2-grams",
+  "isMultiRegex": false,
+  "description": "Extract all the 2-grams from the text."
+},
+{
   "query": "(^| )!words{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] Get all words",

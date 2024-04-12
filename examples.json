@@ -35,10 +35,17 @@
   "description": "Extract ALL the substrings from the text."
 },
 {
-  "query": "(\\n)!line{ *!field{\\S[^,\\n]*}(, *!field{\\S[^,\\n]*})*}(\\n|$)",
-  "doc": "\"LatD\", \"LatM\"\\n   41,    5\\n   42,   52",
-  "title": "[CSV] Fields without spaces",
+  "query": "(\\n)!line{[^\"\\n]*!text{\"[^\"]+\"}([^\"\\n]*!text{\"[^\"]+\"})*[^\"\\n]*}(\\n|$)",
+  "doc": "\"LatD\", \"LatM\", \"LatS\", \"NS\", \"LonD\", \"LonM\", \"LonS\", \"EW\", \"City\", \"State\"\\n41,    5,   59, \"N\",     80,   39,    0, \"W\", \"Youngstown\", OH\\n42,   52,   48, \"N\",     97,   23,   23, \"W\", \"Yankton\", SD\\n46,   35,   59, \"N\",    120,   30,   36, \"W\", \"Yakima\", WA\\n42,   16,   12, \"N\",     71,   48,    0, \"W\", \"Worcester\", MA\\n43,   37,   48, \"N\",     89,   46,   11, \"W\", \"Wisconsin Dells\", WI\\n36,    5,   59, \"N\",     80,   15,    0, \"W\", \"Winston-Salem\", NC\\n49,   52,   48, \"N\",     97,    9,    0, \"W\", \"Winnipeg\", MB\\n39,   11,   23, \"N\",     78,    9,   36, \"W\", \"Winchester\", VA\\n34,   14,   24, \"N\",     77,   55,   11, \"W\", \"Wilmington\", NC\\n39,   45,    0, \"N\",     75,   33,    0, \"W\", \"Wilmington\", DE\\n48,    9,    0, \"N\",    103,   37,   12, \"W\", \"Williston\", ND\\n41,   15,    0, \"N\",     77,    0,    0, \"W\", \"Williamsport\", PA\\n37,   40,   48, \"N\",     82,   16,   47, \"W\", \"Williamson\", WV\\n33,   54,    0, \"N\",     98,   29,   23, \"W\", \"Wichita Falls\", TX\\n37,   41,   23, \"N\",     97,   20,   23, \"W\", \"Wichita\", KS",
+  "title": "[CSV] String fields and lines",
   "isMultiRegex": true,
-  "description": "Extract all fields for each line without the aligning spaces."
+  "description": "Extract all strings fields of each line."
+},
+{
+  "query": "(\\n)!line{ *!field{\\S[^,\\n]*}(, *!field{\\S[^,\\n]*})*}(\\n|$)",
+  "doc": "\"LatD\", \"LatM\", \"LatS\", \"NS\", \"LonD\", \"LonM\", \"LonS\", \"EW\", \"City\", \"State\"\\n41,    5,   59, \"N\",     80,   39,    0, \"W\", \"Youngstown\", OH\\n42,   52,   48, \"N\",     97,   23,   23, \"W\", \"Yankton\", SD\\n46,   35,   59, \"N\",    120,   30,   36, \"W\", \"Yakima\", WA\\n42,   16,   12, \"N\",     71,   48,    0, \"W\", \"Worcester\", MA\\n43,   37,   48, \"N\",     89,   46,   11, \"W\", \"Wisconsin Dells\", WI\\n36,    5,   59, \"N\",     80,   15,    0, \"W\", \"Winston-Salem\", NC\\n49,   52,   48, \"N\",     97,    9,    0, \"W\", \"Winnipeg\", MB\\n39,   11,   23, \"N\",     78,    9,   36, \"W\", \"Winchester\", VA\\n34,   14,   24, \"N\",     77,   55,   11, \"W\", \"Wilmington\", NC\\n39,   45,    0, \"N\",     75,   33,    0, \"W\", \"Wilmington\", DE\\n48,    9,    0, \"N\",    103,   37,   12, \"W\", \"Williston\", ND\\n41,   15,    0, \"N\",     77,    0,    0, \"W\", \"Williamsport\", PA\\n37,   40,   48, \"N\",     82,   16,   47, \"W\", \"Williamson\", WV\\n33,   54,    0, \"N\",     98,   29,   23, \"W\", \"Wichita Falls\", TX\\n37,   41,   23, \"N\",     97,   20,   23, \"W\", \"Wichita\", KS",
+  "title": "[CSV] Fields without spaces and line",
+  "isMultiRegex": true,
+  "description": "Extract all fields of each line without the aligning spaces."
 }
 ]

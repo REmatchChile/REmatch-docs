@@ -3,35 +3,42 @@
   "query": "!date{\\d{4}-\\d{2}-\\d{2}}T!time{\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?}!timezone{(Z|[+\\-]\\d{2}:\\d{2})}",
   "doc": "2024-03-21T13:45:30.500Z\\n2023-01-01T00:00:00Z\\n2025-12-10T08:30:45.250+05:30\\n2022-10-15T18:20:00+02:00\\n2027-06-30T23:59:60.750Z\\n2030-06-30T23:59:60Z\\n2026-11-05T00:00:00Z\\n2028-08-20T00:00:00-07:00\\n2035-04-01T12:30:00Z\\n2019-07-07T07:15:30+08:00\\n",
   "isMultiRegex": false,
-  "title": "RFC3339 DateTime",
+  "title": "[Log files] RFC3339 DateTime",
   "description": "Capture the parts of dates in RFC3339 DateTime format. Does not validates the data."
 },
 {
   "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)",
   "doc": "Puro, Chile, es tu cielo azulado,\\npuras brisas te cruzan también,\\ny tu campo de flores bordado\\nes la copia feliz del Edén.\\nMajestuosa es la blanca montaña\\nque te dio por baluarte el Señor,\\nque te dio por baluarte el Señor,\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\n\\nDulce Patria, recibe los votos\\nCon que Chile en tus aras juró\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.",
   "isMultiRegex": true,
-  "title": "Chile's national anthem",
+  "title": "[Miscellaneous] Chile's national anthem",
   "description": "Match the lines and their words of the national anthem of Chile."
 },
 {
   "query": "(^|\\.)!sentence{[^.]*!noun{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "Adventures of Huckleberry Finn: Proper nouns in sentences",
+  "title": "[Literature] Adventures of Huckleberry Finn: Proper nouns in sentences",
   "isMultiRegex": false,
   "description": "Extract each proper noun, together with the sentence in which it appears."
 },
 {
   "query": "(^|\\.)!sentence{[^.]*!noun1{[A-Z][a-z]*} [^.]*!noun2{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "Adventures of Huckleberry Finn: Pair of proper nouns in sentences",
+  "title": "[Literature] Adventures of Huckleberry Finn: Pair of proper nouns in sentences",
   "isMultiRegex": false,
   "description": "Extract each pair of proper nouns, together with the sentence in which they appear."
 },
 {
   "query": "!substring{.+}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
-  "title": "Adventures of Huckleberry Finn: Get ALL substrings",
+  "title": "[Literature] Adventures of Huckleberry Finn: Get ALL substrings",
   "isMultiRegex": false,
   "description": "Extract ALL the substrings from the text."
+},
+{
+  "query": "(\\n)!line{ *!field{\\S[^,\\n]*}(, *!field{\\S[^,\\n]*})*}(\\n|$)",
+  "doc": "\"LatD\", \"LatM\"\\n   41,    5\\n   42,   52",
+  "title": "[CSV] Fields without spaces",
+  "isMultiRegex": true,
+  "description": "Extract all fields for each line without the aligning spaces."
 }
 ]

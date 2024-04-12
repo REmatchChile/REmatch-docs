@@ -8,7 +8,7 @@
 },
 { 
   "query": "!key{\"\\w+\"}\\s*:\\s*!value{\"(([^\"\\\\]|\\\\.)* )?!noun{[A-Z][A-Za-z]*}(\\.|\"|\\s([^\"\\\\]|\\\\.)*\")}",
-  "doc": "{\\n\\t\"glossary\": {\\n\\t\\t\"title\": \"Example Glossary\"\\n\\t}\\n}",
+  "doc": "{\\n  \"glossary\": {\\n    \"title\": \"Example Glossary\"\\n  }\\n}",
   "isMultiRegex": false,
   "title": "[JSON] Nouns inside key-value pairs",
   "description": "Extract all key-value pairs where the value is a string and has a noun."

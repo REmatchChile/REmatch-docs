@@ -27,7 +27,7 @@ Intuitively, the outer group searches for the sentence (starting with a capital 
 On the other hand, the **REQL** query below does the trick.
 
 ```
-(^|\.)!sentence{[^\.]*!noun{[A-Z][a-z]*}( [^\.]*)?\.}
+(^|\.)!sentence{[^.]*!noun{[A-Z][a-z]*}( [^.]*)?\.}
 ```
 
 You can test this query directly in our REmatch console by clicking [here](https://rematch.cl/?query=%28%5E%7C%5C.%29%21sentence%7B%5B%5E.%5D*%21noun%7B%5BA-Z%5D%5Ba-z%5D*%7D%28+%5B%5E.%5D*%29%3F%5C.%7D&doc=You+don%27t+know+about+me+without+you+have+read+a+book+by+the+name+of+The+Adventures+of+Tom+Sawyer+but+that+ain%27t+no+matter.+That+book+was+made+by+Mr+Mark+Twain+and+he+told+the+truth%2C+mainly.+There+was+things+which+he+stretched%2C+but+mainly+he+told+the+truth.+That+is+nothing.+I+never+seen+anybody+but+lied+one+time+or+another%2C+without+it+was+Aunt+Polly+or+the+widow%2C+or+maybe+Mary.+Aunt+Polly-Tom%27s+Aunt+Polly%2C+she+is-and+Mary%2C+and+the+Widow+Douglas+is+all+told+about+in+that+book%2C+which+is+mostly+a+true+book%2C+with+some+stretchers%2C+as+I+said+before.&isMultiRegex=false).
@@ -45,7 +45,7 @@ With RegEx, we might do something similar to the example above, but now adding a
 Indeed, this expression works very well when only two proper nouns are present inside of a sentence (try it [here](https://regex101.com/r/iSj0t4/1)). However, in the final sentence of our paragraph this will not work since multiple proper nouns are present. On the other hand, in **REmatch**, the following **REQL** query does the trick (again, you can test it [here](https://rematch.cl/?query=%28%5E%7C%5C.%29%21sentence%7B%5B%5E.%5D*%21noun1%7B%5BA-Z%5D%5Ba-z%5D*%7D+%5B%5E.%5D*%21noun2%7B%5BA-Z%5D%5Ba-z%5D*%7D%28+%5B%5E.%5D*%29%3F%5C.%7D&doc=You+don%27t+know+about+me+without+you+have+read+a+book+by+the+name+of+The+Adventures+of+Tom+Sawyer+but+that+ain%27t+no+matter.+That+book+was+made+by+Mr+Mark+Twain+and+he+told+the+truth%2C+mainly.+There+was+things+which+he+stretched%2C+but+mainly+he+told+the+truth.+That+is+nothing.+I+never+seen+anybody+but+lied+one+time+or+another%2C+without+it+was+Aunt+Polly+or+the+widow%2C+or+maybe+Mary.+Aunt+Polly-Tom%27s+Aunt+Polly%2C+she+is-and+Mary%2C+and+the+Widow+Douglas+is+all+told+about+in+that+book%2C+which+is+mostly+a+true+book%2C+with+some+stretchers%2C+as+I+said+before.&isMultiRegex=false)):
 
 ```
-(^|\.)!sentence{[^\.]*!noun1{[A-Z][a-z]*} [^\.]*!noun2{[A-Z][a-z]*}( [^\.]*)?\.}
+(^|\.)!sentence{[^.]*!noun1{[A-Z][a-z]*} [^.]*!noun2{[A-Z][a-z]*}( [^.]*)?\.}
 ```
 
 We note that the logic is equivalent in both extensions: we simply duplicate the pattern for the proper noun. Also note that the **REQL** query above is a bit more verbose principally due to having explicit variable names, given that the remainder of the expressions is identical.

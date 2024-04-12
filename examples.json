@@ -13,6 +13,13 @@
   "title": "[JSON] Nouns inside key-value pairs",
   "description": "Extract all key-value pairs where the value is a string and has a noun."
 },
+{ 
+  "query": "(public|private)\\s+\\w+\\s+!fun{\\w+}\\((!attr{[^,)]+}(, !attr{[^,)]+})*)?\\)",
+  "doc": "public class Game\\n{\\n    public readonly Deck deck;\\n    public readonly Card card;\\n    private readonly List<Player> players;\\n \\n    public void Play1(Player p1, Card card) {\\n        players.Add(p1);\\n        this.card = card;\\n	}\\n    public void Play2(Player p1, Player p2, Card card) {\\n        players.Add(p1);\\n        players.Add(p2);\\n        this.card = card;\\n    }\\n    public void Play() {\\n        card = null;\\n    }\\n}",
+  "isMultiRegex": true,
+  "title": "[Code] All functions names and its parameters",
+  "description": "Extract all fuctions of a C# class plus all its parameters."
+},
 {
   "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)",
   "doc": "Puro, Chile, es tu cielo azulado,\\npuras brisas te cruzan también,\\ny tu campo de flores bordado\\nes la copia feliz del Edén.\\nMajestuosa es la blanca montaña\\nque te dio por baluarte el Señor,\\nque te dio por baluarte el Señor,\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\n\\nDulce Patria, recibe los votos\\nCon que Chile en tus aras juró\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.",

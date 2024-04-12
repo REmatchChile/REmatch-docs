@@ -24,8 +24,8 @@
   "query": "(public|private)\\s+\\w+\\s+!fun{\\w+}\\(([^,)]+,){2,}[^,)]+\\)",
   "doc": "public class Game\\n{\\n    public readonly Deck deck;\\n    public readonly Card card;\\n    private readonly List<Player> players;\\n \\n    public void Play1(Player p1, Card card) {\\n        players.Add(p1);\\n        this.card = card;\\n    }\\n    public void Play2(Player p1, Player p2, Card card) {\\n        players.Add(p1);\\n        players.Add(p2);\\n        this.card = card;\\n    }\\n    public void Play() {\\n        card = null;\\n    }\\n}",
   "isMultiRegex": false,
-  "title": "[Code] All functions with two or more parameters",
-  "description": "Extract all functions of a C# class plus that have two or more parameters."
+  "title": "[Code] All functions with three or more parameters",
+  "description": "Extract all functions of a C# class plus that have three or more parameters."
 },
 {
   "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)",

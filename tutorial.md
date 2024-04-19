@@ -54,11 +54,11 @@ Then if you run this query on REmatch over the e-mails document, you will find t
 
 ## Character operators
 
-Many times we will know the pattern we want to define, but there are certain positions of the pattern that can be any character. For this, we will use the pattern '.' (a dot), which simply means we want to see one letter. For example, if we want to find the word 'gm?il' where the third letter can be any symbol, then we define that with the following REQL query:
+Many times we will know the pattern we want to define, but there are certain positions of the pattern that can be any character. For this, we will use the pattern '.' (a dot), which simply means we want to see one letter. For example, if we want to find the word 'gm?il' where the third letter can be any symbol, then we define that with the following REQL query (try it [here](https://rematch.cl/?query=%21output%7Bgm.il%7D&doc=cperez%40gmail.com%2C+soto%40uc.cl%2C+sdelcampo%40gmail.com%2C+lpalacios%40gmeil.com%2C+rramirez%40gmsil.com%2C+pvergara%40ing.uc.cl%2C+ndelafuente%40ing.puc.cl%2C+tnovoa%40mail.uc.cl%2C+nnarea%40myucmail.uc.cl%2C+nomail%40gmail.coom%2C+juan.soto%40uc.cl&isMultiRegex=false)):
 
     !output{gm.il}
 
-where the dot represents any symbol. By running this query, we will have the same results as for the simple gmail pattern but with more results. Try it [here](https://rematch.cl/?query=%21output%7Bgm.il%7D&doc=cperez%40gmail.com%2C+soto%40uc.cl%2C+sdelcampo%40gmail.com%2C+lpalacios%40gmeil.com%2C+rramirez%40gmsil.com%2C+pvergara%40ing.uc.cl%2C+ndelafuente%40ing.puc.cl%2C+tnovoa%40mail.uc.cl%2C+nnarea%40myucmail.uc.cl%2C+nomail%40gmail.coom%2C+juan.soto%40uc.cl&isMultiRegex=false).
+where the dot represents any symbol. By running this query, we will have the same results as for the simple gmail pattern but with more results. 
 
 In some cases, with the pattern we want to define that not just any symbol will go in that position, but rather a symbol of a special class. In our 'gm?il' example, we would like to say that the third symbol is a vowel. For this, we use the '[ ]' operator that allows us to specify character classes, where within the square parentheses we list all the symbols that can appear. For example, to define the vowel class, we use [aeiou], and to say that we want to find 'gm_il' where the symbol _ can be a vowel, we use the pattern (try it [here](https://rematch.cl/?query=%21output%7Bgm%5Baeiou%5Dil%7D&doc=cperez%40gmail.com%2C+soto%40uc.cl%2C+sdelcampo%40gmail.com%2C+lpalacios%40gmeil.com%2C+rramirez%40gmsil.com%2C+pvergara%40ing.uc.cl%2C+ndelafuente%40ing.puc.cl%2C+tnovoa%40mail.uc.cl%2C+nnarea%40myucmail.uc.cl%2C+nomail%40gmail.coom%2C+juan.soto%40uc.cl&isMultiRegex=false)):
 
@@ -72,4 +72,8 @@ The above describes all the simple patterns to find a sequence of symbols within
 
 ## Disjunctions and optionals
 
-Although simple patterns allow us to define a sequence of fixed length that we want to find in a string, they do not allow us to search for the appearance of two or more possibilities simultaneously. For example, we would like to check the occurrence of the word 'gmail' or the word 'uc' if either appears in the string. For this, we can use the disjunction operator '|' (a pipe), which allows us to say 'gmail|uc' and reads like "we want to see the appearance of Gmail or uc in the string."
+Although simple patterns allow us to define a sequence of fixed length that we want to find in a string, they do not allow us to search for the appearance of two or more possibilities simultaneously. For example, we would like to check the occurrence of the word 'gmail' or the word 'uc' if either appears in the string. For this, we can use the disjunction operator '|' (a pipe), which allows us to say 'gmail|uc' and reads like "we want to see the appearance of Gmail or uc in the string". Namely, the following REQL query (try it [here](https://rematch.cl/?query=%21output%7Bgmail%7Cuc%7D&doc=cperez%40gmail.com%2C+soto%40uc.cl%2C+sdelcampo%40gmail.com%2C+lpalacios%40gmeil.com%2C+rramirez%40gmsil.com%2C+pvergara%40ing.uc.cl%2C+ndelafuente%40ing.puc.cl%2C+tnovoa%40mail.uc.cl%2C+nnarea%40myucmail.uc.cl%2C+nomail%40gmail.coom%2C+juan.soto%40uc.cl&isMultiRegex=false) over the list of e-mails):
+
+    !output{gmail|uc}
+
+

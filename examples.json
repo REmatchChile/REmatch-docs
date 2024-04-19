@@ -107,35 +107,35 @@
 {
   "query": "!output{gmail}",
   "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
-  "title": "[E-mails] Find the word gmail",
+  "title": "[Tutorial example] Simple sequences",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' in a list of e-mails."
 },
 {
   "query": "!output{gm.il}",
   "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
-  "title": "[E-mails] Find the word gm?il where ? is any character",
+  "title": "[Tutorial example] The . operator",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm?il' in a list of e-mails where the third letter could be any letter."
 },
 {
   "query": "!output{gm[aeiou]il}",
   "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
-  "title": "[E-mails] Find the word gm_il where _ is any vowel",
+  "title": "[Tutorial example] Character sets",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter could be any vowel."
 },
 {
   "query": "!output{gm[^aeiou]il}",
   "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
-  "title": "[E-mails] Find the word gm_il where _ is not a vowel",
+  "title": "[Tutorial example] Negated character sets",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter is not a vowel."
 },
 {
   "query": "!output{gmail|uc}",
   "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
-  "title": "[E-mails] Find the word gmail or uc",
+  "title": "[Tutorial example] Disjunction",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' or 'uc' in a list of e-mails."
 }

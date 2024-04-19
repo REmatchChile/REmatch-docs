@@ -138,5 +138,12 @@
   "title": "[Tutorial example] Disjunction",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' or 'uc' in a list of e-mails."
+},
+{
+  "query": "!output{ing\\.p?uc}",
+  "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
+  "title": "[Tutorial example] Optional",
+  "isMultiRegex": false,
+  "description": "Extract all substrings 'ing.puc' or 'ing.uc' in a list of e-mails."
 }
 ]

@@ -37,6 +37,10 @@ Below, we will introduce REQL to verify simple RegEx patterns in strings and the
 
 # Standard RegEx operators in REQL
 
+## Introduction to RegEx
+
+**PUT HERE A RESUME OF REGEX OPERATORS FIND IN REQL.**
+
 ## Simple patterns 
 
 The simplest form of a RegEx is a word. A word like gmail defines the string 'gmail' and describes that only strings containing the word 'gmail' will satisfy the property. For a running example of this tutorial, consider the following document that includes a list of e-mails separated by commas.
@@ -76,4 +80,10 @@ Although simple patterns allow us to define a sequence of fixed length that we w
 
     !output{gmail|uc}
 
+We can combine disjunction with simple patterns or within simple patterns. For example, instead of using a character class to define a vowel, we can use disjunction and define the pattern 'gm(a|e|i|o|u)il' where parentheses are part of regular expression syntax and allow to group disjunctions. In other words, the subexpression (a|e|i|o|u) is equivalent to [aeiou], which defines the vowel class. In particular, we can use the operator '|' to list different possibilities in a pattern like 'gmail|uc|puc'.
 
+Another way to choose between alternatives in RegEx (and REQL) is to use the optional operator '?', another alternative to disjunction. An example of the optional is when we use ing\.(uc|puc) to search for the word 'ing.uc' or 'ing.puc' in an email. Both words are very similar; the only difference is that the 'p' may or may not appear in the email. For this, we can use the optional operator '?' and write the REQL query:
+
+    !output{ing\.p?uc}
+
+Note that the '\.' is to declare a dot in the query (which must be escaped, as we explained before). 

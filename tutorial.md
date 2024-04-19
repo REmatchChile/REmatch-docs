@@ -91,4 +91,13 @@ where the `\.` is to declare a dot in the query (which must be escaped, as we ex
 
 One of the most important classes of operators in REQL is repetition. So far, REQL allows us to identify patterns within a string but with a bounded number of letters. For example, an expression like `gmail|p?uc` will enable us to identify the occurrence of 'gmail', 'puc' or 'uc' in the string, but this is a limited number of possibilities.
 
-We use the `+` and `*` operators to define patterns with one-or-more or zero-or-more characters. For example, if we want to identify emails that contain '@ing.uc.cl' or '@mail.uc.cl' where what is between '@' and the next dot is of no interest to us, then we use the regular expression `@[a-zA-Z]+\.uc\.cl`. In this last expression, the `[a-zA-Z]+` means that we want to see a letter (upper or lower case, that is, `[a-zA-Z]`) one or more times. On the other hand, if we want to allow emails like '@.uc.cl', then we can use the `*` operator and write the expression `@[a-zA-Z]*\.uc\.cl` where now the `[a-zA-Z]*` means that we want to see a letter zero or more times.
+We use the `+` and `*` operators to define patterns with one-or-more or zero-or-more characters. For example, if we want to identify emails that contain '@ing.uc.cl' or '@mail.uc.cl' where what is between '@' and the next dot is of no interest to us, then we use the REQL query (try it [here]()):
+
+    !output{@[a-zA-Z]+\.uc\.cl} 
+
+In this last query, the `[a-zA-Z]+` means that we want to see a letter (upper or lower case, that is, `[a-zA-Z]`) one or more times. On the other hand, if we want to allow emails like '@.uc.cl', then we can use the `*` operator and write the expression `@[a-zA-Z]*\.uc\.cl` where now the `[a-zA-Z]*` means that we want to see a letter zero or more times.
+
+The RegEx subpattern `[a-zA-Z]+` allows us to find one or more letters in an email, but there is no limit to the length of the word. In fact, the pattern `@[a-zA-Z]+\.uc\.cl` will match the string '@a.uc.cl' or the string '@aaaaaaaaaaaaaaaaaaaaaaa.uc.cl' (20 letters or more) or with any length between @ and the first period. We often do not want an arbitrary number of repetitions of a pattern but rather a number of repetitions within a range. For this, one can use the repetition operator with range `{n,m}`, which means that the pattern will repeat n-to-m times where n and m are numbers. Going back to our example, if we want the domain word to be between 2 to 5 characters, then we use:
+
+    !output{@[a-zA-Z]{2,5}\.uc\.cl} 
+

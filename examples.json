@@ -145,5 +145,19 @@
   "title": "[Tutorial example] Optional",
   "isMultiRegex": false,
   "description": "Extract all substrings 'ing.puc' or 'ing.uc' in a list of e-mails."
+},
+{
+  "query": "!output{@[a-zA-Z]+\\.uc\\.cl} ",
+  "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
+  "title": "[Tutorial example] Repetition",
+  "isMultiRegex": false,
+  "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of one or more letters."
+},
+{
+  "query": "!output{@[a-zA-Z]{2,5}\\.uc\\.cl} ",
+  "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
+  "title": "[Tutorial example] Quantifier",
+  "isMultiRegex": false,
+  "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of two to five letters."
 }
 ]

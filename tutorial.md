@@ -192,61 +192,78 @@ To understand how to use REQL to extract parts of our strings, let's look at an 
 
 Consider our last example for checking the right side of a mail, only now we'll add variables to specify the parts we want to extract (try it [here]):
 
- !output{@!x{\w+}\.p?uc\.cl}
+    !output{@!x{\w+}\.p?uc\.cl}
 
 Our new query has two variables: `output` and `x`. The first variable `!output{...}` extracts the whole text that matches the pattern, as we did with the previous example above. The second variable `!x{...}` extracts the internal domain of the email, namely, what is matched by the subpattern `\w+`. Indeed, the identifiers 'output' and 'x' are the names of the variables and will allow us to refer by a name to each capture. These names are arbitrary, and one could use more suggestive identifiers like below (try it [here]): 
  
- !email{@!domain{\w+}\.p?uc\.cl}
+    !email{@!domain{\w+}\.p?uc\.cl}
 
 where 'email' and 'domain' are the new identifiers for 'output' and 'x'. Note that this marks the first big difference with standard RegEx. In RegEx, one uses a capturing group to extract a substring that is denoted by normal parentheses `(...)` or, also, `(?<name>...)` to assign a name to the capturing group. Since extracting information is the main goal of REmatch, in REQL we have to always assign a name to what is captured, and for that, we use the notation `!name{...}`. Moreover, this allows the free use of normal parenthesis `(...)` as a syntactical object to group operators.
 
 When we run a REQL query over a document, REmatch returns all the **matches** of the query into the document. A match is an assignment of the variables to intervals of the document, also called **spans**. For instance, if we run the above query over our document in the REmatch web interface (try it [here]), we can see the four matches that REmatch retrieves on the right-hand side. Furthermore, each variable maps to a span in the document, namely, a pair of positions. For the first match (Match 0), we can see that 'email' is mapped to the span (95-105) and 'domain' to the span (96-99). Note that the spans allow us to extract the document's content and also help us find the context where the information was found. 
 
+## Use and restrictions of variables
 
-## Restrictions over variables
+In REQL, one can use up to 32 variables in a single pattern. For instance, if we also want to capture the other domains in the same pattern, we can use more variables to capture them (try it [here]):
 
-In REQL, one can use up to 32 different variables in a single pattern. For instance, if we also want to capture the other domains in the same pattern, we can use more variables to capture them (try it [here]):
+    !email{@!domain{\w+}\.!domain2{p?uc}\.!domain3{cl}}
 
-    !email{@!domain{\w+}\.!domain2{p?uc}\.\domain3{cl}}
+Although we have always placed a variable surrounding the whole pattern (like `!output{...}`), this is unnecessary if we don't want to capture the span where all the pattern holds. For instance, if we want only to capture the domain, and not the whole right-hand side of an e-mail, we can write the query (try it [here]):
 
+    @!domain{\w+}\.p?uc\.cl
 
+This feature is helpful for information extraction since it allows one to check the existence of a pattern before (like `@`) or after (like `\.p?uc\.cl`) without capturing it. This feature is another big difference with RegEx, where the patterns before or after a capturing group can affect the extraction process without retrieving all the outputs. Indeed, for checking patterns before or after a capturing group without consuming, RegEx provides *lookaround* operators, which are not necessary for REQL. See more discussion about this in the next subsection. 
 
-to capture text one has to use normal parenthesis, which refer 
+In general, one can put a variable in any place of the pattern for capturing a span. However, there are four restrictions for correctly interpreting the meaning of a variable. The restrictions are the following.
 
-Nuestra nueva expresion regular cuenta con dos variables. La primera variable, escrita como !x{...} nos permitirá obtener el identificador del correo, mientras que la segunda variable, escrita como !y{...} nos permitirá obtener el dominio del correo. De hecho, el identificador x e y son los nombres de estas variables, y nos permitirá referirnos por un nombre a cada captura. Estos nombres son arbitrarios, y podríamos haber ocupado identificadores más sugerentes como a continuación:
+1. *One cannot concatenate two subqueries `e1` and `e2` (namely, `e1e2`) when`e1` and `e2` have some variable name in common.*
+    - `!x{a}!y{b}`is allowed.
+    - `!x{a}!x{b}` is **NOT allowed**. 
 
-^!id{(\w+\.)?\w+}@!domain{(\w+\.)?\w+\.\w{2,3}}$
+2. *One cannot use disjunction `e1|e2` when subqueries `e1` and `e2` have a different set of variable names.*
+    - `!x{a}|!x{b}` is allowed. 
+    - `!x{a}|!y{b}` is **NOT allowed**.
 
-donde id y domain son los nuevos identificadores para x e y, respectivamente.
+3. *One cannot use repetitions `*` (zero or more) or `+` (one or more), or the quantifiers `{n,m}` over a subquery `e` that contains variables.*
+    - `!x{a+}`, `!x{!y{a}b*}` or `!x{a}b?` is allowed.
+    - `!x{a}+`, `!x{!y{a}*b}` or `!x{a}?b` is **NOT allowed**.
 
-Ahora que tenemos nuestras variables para capturar contenido, necesitaremos ver como utilizar la librería REmatch para extraer el contenido. Para esto, veamos un ejemplo en ejecución.
+4. *One cannot put a variable over a subquery `e` that can match with an 'empty string'.*
+    - `!x{a+}` is allowed.
+    - `!x{a*}` or `!x{a?}` is **NOT allowed**.
 
-[ ]
-seq = ["cperez@gmail.com", "soto@uc.cl", "sdelcampo@gmail.com", 
-       "lpalacios@gmeil.com", "rramirez@gmsil.com", "pvergara@ing.uc.cl", 
-       "ndelafuente@ing.puc.cl", "tnovoa@mail.uc.cl", "nnarea@myucmail.uc.cl", 
-       "nomail@gmail.coom", "juan.soto@uc.cl"]
-pattern = "^!id{(\w+\.)?\w+}@!domain{(\w+\.)?\w+\.\w{2,3}}$"
-regex = re.compile(pattern)
+In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that disjunction needs the same variables, (3) that one cannot capture inside a repetition or a quantifier, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In a while, we will show the novel feature of *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
 
-for s in seq:
-    match = regex.find(s)
-    if match:
-        print("El correo " + s + 
-              " tiene id " + match.group('id') + 
-              " y dominio " + match.group('domain'))
-Como se puede observar de este ejemplo, la función find del objeto regex nos devuelve un objeto match cuando obtiene un resultado. Este objeto match tiene la captura con el contenido de id y de domain. Para acceder el string capturado por estas variables, usamos la función group con el nombre de la variable.
+## All matches and without duplicates
 
-** TODO: EXPLAIN RESTRICTTIONS ON THE USE OF VARIABLES **
+An distinguished feature that you have probably observed is that when REmatch evaluates an REQL it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in REmatch web interface over our documents with emails (try it [here]):
 
-# All possible matches
+    !twoletters{\w\w}
 
-**EXPLAIN HERE ALL POSSIBLE MATCHES SEMANTICS**
+that search for all pairs of consecutive letters. You can easily see that REmatch retrieves all appearances of two alphanumeric letters in the document. Instead, if we run the analogous query by replacing variables with capture group in a RegEx engine, like:
 
-** GIVE EXAMPLES WHERE THIS SEMANTICS IS NEEDED **
-** USE THE JUSFITICATION IN THE DEMO PAPER TO EXPLAIN THIS **
+    (\w\w)  (RegEX)
 
-# Separators and many matches
+you can verify that not all spans are retrived. This shortcoming of RegEx engines can be solved by using *lookaround* operators, namely, by using the following RegEx query:
+
+    (?=(\w\w))   (RegEx)
+
+which says *lookahead for the pattern (\w\w) without consuming*. The lookaround operators works for some cases, like the previous scenario, but cannot work in general. For instance, if we want to find *all alphanumeric substrings* in our document, we can easily write the following query REQL query:
+
+    !substring{\w+}
+
+that search for all appearances of one or more alphanumeric symbols. One can test this query in REmatch web interface and see that it retrieves all substrings. Note that this query cannot be defined using standard RegEx no matter the operators that one uses. Indeed, one can go through the examples in REmatch ([here](https://rematch.cl/examples)) and check that there are several practical cases where **ALL MATCHES** are useful for information extraction (like DNA, literature, etc), but one cannot perform the same task in RegEx. 
+
+It is worth noticing that REmatch retrieves all matches and **WITHOUT DUPLICATES**, no matter how the query is written. For instance, if we write the following query:
+
+    !twoletters{\w\w}|!twoletters{\w\w}
+
+the same pattern is copied twice on the left- and right-hand side of the disjunction. One can naively interpret that each subpattern will provide a new result, and then each output will be repeated twice. Fortunately, this is not case for REmatch evaluation, and each output will be retrieved once, no matter how the query is written. You can test this in REmatch web interface [here].
+
+Finally, note that retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch in terms of time or space. Indeed, REmatch runs as fast as every RegEx engines and always looks for all matches. **REmatch** is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the **REmatch** algorithm reads your document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless that it found ten or 10^10 outputs.
+ 
+
+## Separators and many matches
 
 Suponga ahora que en vez de un solo string, usted cuenta con un documento que es una lista de string separados por comas, donde algunos de estos strings pueden ser correos y otros no. Por ejemplo, un posible documento con estas caracteristicas sería el siguiente:
 

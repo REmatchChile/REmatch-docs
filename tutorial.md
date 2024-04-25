@@ -1,5 +1,5 @@
 
-# Motivation of using REmatch
+# Motivation of using REQL
 
 Suppose you want to do a linguistic analysis focused on Chile's relations with its neighboring countries. A possible starting point would be to analyze the Wikipedia page corresponding to the History of Chile. For example, below is the summary of the Wikipedia page from Chile (from English Wikipedia) provided in plain text format.
 
@@ -74,7 +74,7 @@ The simplest form of a RegEx is a word. A word like `gmail` defines the string '
     tnovoa@mail.uc.cl
     nnarea@myucmail.uc.cl
     nomail@gmail.coom
-    juan.soto@uc.cl
+    juansoto@uc.cl
 
 Then, for finding the word 'gmail' in the previous document, we only need to write the following REQL query:
 
@@ -188,7 +188,7 @@ To understand how to use REQL to extract parts of our strings, let's look at an 
     tnovoa@mail.uc.cl
     nnarea@myucmail.uc.cl
     nomail@gmail.coom
-    juan.soto@uc.cl
+    juansoto@uc.cl
 
 Consider our last example for checking the right side of a mail, only now we'll add variables to specify the parts we want to extract (try it [here]):
 
@@ -236,76 +236,62 @@ In other words, (1) says that one cannot repeat the same variable over a sequenc
 
 ## All matches and without duplicates
 
-An distinguished feature that you have probably observed is that when REmatch evaluates an REQL it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in REmatch web interface over our documents with emails (try it [here]):
+A distinguished feature you have probably observed is that when REmatch runs a REQL query, it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in the REmatch web interface over our example document (try it [here]):
 
     !twoletters{\w\w}
 
-that search for all pairs of consecutive letters. You can easily see that REmatch retrieves all appearances of two alphanumeric letters in the document. Instead, if we run the analogous query by replacing variables with capture group in a RegEx engine, like:
+This pattern searches for all pairs of consecutive letters. You can see that REmatch retrieves all appearances of two alphanumeric letters in the document. Instead, if we run the analogous query by replacing variables with capture group in a RegEx engine, like:
 
-    (\w\w)  (RegEX)
+    (\w\w)          (RegEx)
 
-you can verify that not all spans are retrived. This shortcoming of RegEx engines can be solved by using *lookaround* operators, namely, by using the following RegEx query:
+you can verify that not all spans are retrieved. This shortcoming of RegEx engines can be solved by using *lookaround* operators, specifically by using the following RegEx query:
 
-    (?=(\w\w))   (RegEx)
+    (?=(\w\w))      (RegEx)
 
-which says *lookahead for the pattern (\w\w) without consuming*. The lookaround operators works for some cases, like the previous scenario, but cannot work in general. For instance, if we want to find *all alphanumeric substrings* in our document, we can easily write the following query REQL query:
+which says "lookahead for the pattern (\w\w) without consuming the letters". The lookaround operators work for some cases, like the previous scenario, but cannot generally work. For instance, if we want to find *all alphanumeric substrings* in our document, we can write the following REQL query:
 
     !substring{\w+}
 
-that search for all appearances of one or more alphanumeric symbols. One can test this query in REmatch web interface and see that it retrieves all substrings. Note that this query cannot be defined using standard RegEx no matter the operators that one uses. Indeed, one can go through the examples in REmatch ([here](https://rematch.cl/examples)) and check that there are several practical cases where **ALL MATCHES** are useful for information extraction (like DNA, literature, etc), but one cannot perform the same task in RegEx. 
+that searches for all appearances of one or more alphanumeric symbols. One can test this query in the REmatch web interface and see that it retrieves all substrings. Note that this query cannot be defined using standard RegEx, no matter the operators one uses. Indeed, one can go through the examples in REmatch ([here](https://rematch.cl/examples)) and check that there are several practical cases where **ALL MATCHES** is helpful for information extraction (like DNA, literature, etc), but one cannot perform the same task with RegEx. 
 
-It is worth noticing that REmatch retrieves all matches and **WITHOUT DUPLICATES**, no matter how the query is written. For instance, if we write the following query:
+It is worth noticing that REmatch retrieves all matches and **WITHOUT DUPLICATES**, no matter how one writes the REQL query. For instance, one can use the following REQL query:
 
     !twoletters{\w\w}|!twoletters{\w\w}
 
-the same pattern is copied twice on the left- and right-hand side of the disjunction. One can naively interpret that each subpattern will provide a new result, and then each output will be repeated twice. Fortunately, this is not case for REmatch evaluation, and each output will be retrieved once, no matter how the query is written. You can test this in REmatch web interface [here].
+where the same pattern is copied twice on the left- and right-hand side of a disjunction. A user can naively guess that each subpattern will provide a new result, and then REmatch will find each output twice. Fortunately, this is not the case for REmatch evaluation, and each output will be retrieved once, no matter how the query is written. You can test this in the REmatch web interface [here].
 
-Finally, note that retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch in terms of time or space. Indeed, REmatch runs as fast as every RegEx engines and always looks for all matches. **REmatch** is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the **REmatch** algorithm reads your document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless that it found ten or 10^10 outputs.
+Finally, retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch regarding efficiency. Indeed, REmatch runs as fast as any standard RegEx engine and always looks for all matches. REmatch is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the REmatch algorithm reads a document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless of whether it found ten or 10^10 outputs.
  
 
-## Separators and many matches
-
-Suponga ahora que en vez de un solo string, usted cuenta con un documento que es una lista de string separados por comas, donde algunos de estos strings pueden ser correos y otros no. Por ejemplo, un posible documento con estas caracteristicas sería el siguiente:
-
-Carlos Perez,cperez@gmail.com,Juan Soto,soto@uc.cl,Sebastian del Campo,sdelcampo@gmail.com
-
-Usted desea extraer los strings que son correos, junto con su identificador y dominio. Si extendemos ligeramente nuestra expresión regular podremos identificar si un campo en los datos (esto es, un string separado por comas) es un correo y, utilizando las variables, podremos obtener el identificador el dominio. En otras palabras, considere la siguiente expresión regular:
-
-(^|,)!id{(\w+\.)?\w+}@!domain{(\w+\.)?\w+\.\w{2,3}}($|,)
-
-Lo que hicimos fue modificar el comienzo con (^|,) que nos permite partir desde el comienzo del string o desde una coma, y también modificar el fin con ($|,) que nos permite terminar desde el fin del string o desde una coma. Esta expresión regular busca un correo en el documento y, de encontrarlo, obtiene el identificador y dominio del correo.
-
-** NO NEED OF BOUNDARIES OR LOOKAHEAD **
-
-## Anchors and special symbols
+## Separators and all matches
 
 - `^`: beginning of document
 - `$`: end of document
 
+As someone said "With great power comes great responsibility", now that REQL finds all matches, one has to be a bit more careful when specifying some queries. For instance, we want to capture all names of our e-mail list, one is tempting to write:
 
-So far, we have used our examples to ask for the occurrence of each pattern to be anywhere in the string. While this happens in most cases, other times we would like to refer to the beginning or end of the document, also known as anchors. For this, we will use the `^` operator to refer to the beginning and `$` to refer to the end of the document. To exemplify the use of both operators, we can define a pattern that allows us to verify that the entire string is an email using the following expression:
+    !name{\w+}@
 
-** PREVIOUS VERSION
+However, this query captures all alphanumeric substrings of one or more characters that ends with an `@`. Then it will find all names but also all their suffixes. 
 
-^[a-zA-Z.]+@[a-zA-Z.]+\.[a-zA-Z]{2,3}$
+So, how can we capture all names? Now that REmatch always founds all matches, we need to be more specific of what we want and declare where the pattern must start, and where it must ends. For example, for the previous query we can do it as follows:
 
-Aquí el ^ al comienzo de la expresión nos dice que la aparición del patrón tiene que ser desde el comienzo del string y, en cambio, el $ al final nos dice que el patrón debe terminar justo al final del string.
+    \n!name{\w+}@
 
-[ ]
-seq = ["cperez@gmail.com", "soto@uc.cl", "sdelcampo@gmail.com", 
-       "lpalacios@gmeil.com", "rramirez@gmsil.com", "pvergara@ing.uc.cl", 
-       "ndelafuente@ing.puc.cl", "tnovoa@mail.uc.cl", "nnarea@myucmail.uc.cl", 
-       "nomail@gmail.coom", "juan.soto@uc.cl"]
-pattern = "^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]{2,3}$"
-regex = re.compile(pattern)
+This pattern is the same as before but now we also specify that it must start after a new line `\n`. One can check [here], that this will give (almost) all names used in our list of e-mails. Although this requires a bit more of work by being more specific, one usually gains clarity on what is searching for extraction. 
 
-for s in seq:
-    if regex.find(s):
-        print(f"{s} cumple con el patrón")
+The user can notice that we almost get all the results, because the first name of the first e-mail is not part of the results. The reason is that the first result doesn't start with a new line, since there is no character before it. To solve this issue, REQL includes the operators `^` and `$` for declaring the beginning and the end of the document, respectively. Then to get all the names of our example, we need to write the following REQL query (try it [here]):
 
-** EXPLAIN HERE THE ESCAPE CHARACTERS THAT ARE ALLOWED LIKE \n **
+    (\n|^)!name{\w+}@
 
-## FULL EXAMPLE (sentences and content)
+Note that the operators `^` and `$` are not characters, since they just refer to the beginning and the end of the document, respectively. For this reason, REQL doesnt't allow to use the `^` or `$` inside a variable. You can try to use `^` and `$` inside a variable in the REmatch web interface, and you will get an error from the interface. 
+
+Now that we have introduce all the REQL operators, we end by showing all pairs of name and domain from the emails with the following REQL query (try it [here]):
+
+    (\n|^)!name{\w+}@!domain{(\w+\.)+\w+}(\n|$)
+
+# Some practical REQL examples
+
 
 
 # Multispan capturing

@@ -172,6 +172,6 @@
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E09: Special character set",
   "isMultiRegex": false,
-  "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' by using the special character set \\w"
+  "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' by using the special character set \\w."
 }
 ]

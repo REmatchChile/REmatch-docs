@@ -178,6 +178,8 @@ Finally, REQL includes common special symbols to refer to a newline or a tab, wh
 - `\v`: a vertical whitespace
 - `\f`: a form feed (advance downward to the next "page")
 
+We end this review of the main RegEx operators in REQL. We are ready to move on to the main novel feature of REQL: capture variables. 
+
 # Capturing variables
 
 ## Variables, matches, and spans

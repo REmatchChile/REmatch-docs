@@ -68,7 +68,7 @@ In the following, we will cover all the operators displayed above through exampl
 - `a`: character (UTF-8)
 - `ee`: concatenation
 
-The simplest form of a RegEx is a word. A word like `gmail` defines the string 'gmail' and describes that only strings containing the word 'gmail' will satisfy the property. For a running example of this tutorial, consider the following document that includes a list of emails separated by commas.
+The simplest form of a RegEx is a word. A word like `gmail` defines the string 'gmail' and describes that only strings containing the word 'gmail' will satisfy the property. For a running example of this tutorial, consider the following document that includes a list of emails separated by new lines:
 
     cperez@gmail.com
     soto@uc.cl
@@ -86,9 +86,9 @@ Then, for finding the word 'gmail' in the previous document, we only need to wri
 
     !output{gmail}
 
-Then if you run this query on REmatch over the emails document, you will find the three positions where the word 'gmail' appears. You can try the same query by modifying gmail with your favorite word to search and see the result. You can try this example [here](https://rematch.cl/?query=%21output%7Bgmail%7D&doc=cperez%40gmail.com%2C+soto%40uc.cl%2C+sdelcampo%40gmail.com%2C+lpalacios%40gmeil.com%2C+rramirez%40gmsil.com%2C+pvergara%40ing.uc.cl%2C+ndelafuente%40ing.puc.cl%2C+tnovoa%40mail.uc.cl%2C+nnarea%40myucmail.uc.cl%2C+nomail%40gmail.coom%2C+juan.soto%40uc.cl&isMultiRegex=false).
+You can try this example [here](https://rematch.cl/?query=%21output%7Bgmail%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Arramirez%40gmsil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Anomail%40gmail.coom%0Ajuansoto%40uc.cl&isMultiRegex=false). If you run this query on REmatch over the emails list, you will find the three positions where the word 'gmail' appears. You can try the same query by modifying gmail with your favorite word to search and see the result. 
 
-**IMPORTANT**: For the rest of this section, forget about the clause `!output{...}` in the REQL examples. This operator is one of the main constructs of REQL for information extraction and we will cover it in full detail in a while. This construct says: "When you find the word 'gmail,' capture it in the object 'output'." Indeed, if you write 'gmail' without the clause `!output{...}`, this is a valid REQL query, but REmatch will only tell you `TRUE` or `FALSE`, depending on whether the substring gmail appears or not in the document, but without retrieving the positions of that substrings. For the following examples, we will maintain this clause  `!output{...}` in the queries to cover it later in the tutorial (after you are a master of RegEx patterns in REQL). 
+**IMPORTANT**: For the rest of this section, forget about the clause `!output{...}` in the REQL examples. This operator is one of the main constructs of REQL for information extraction and we will cover it in full detail in a while. This construct says: "When you find the word 'gmail,' capture it in the object 'output'." Indeed, if you write 'gmail' without the clause `!output{...}`, this is a valid REQL query, but REmatch will only tell you `TRUE` or `FALSE`, depending on whether the substring gmail appears or not in the document, but without retrieving the positions of that substrings. For the following examples, we will maintain this clause  `!output{...}` in the queries to cover it later in the tutorial (after you are a master of RegEx operators in REQL). 
 
 ## Any character and escape characters
 

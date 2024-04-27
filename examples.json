@@ -70,6 +70,13 @@
   "description": "Extract all the words from the text."
 },
 {
+  "query": "(^|(\\.))!sent{[^.]* !w1{[Aa]\\w+} !w2{[Aa]\\w+}( [^.]*)?\\.}",
+  "doc": "I know them well. They are extremes, abnormals; their temperaments are as opposite as the poles. Their life-histories are about alike but look at the results.",
+  "title": "[Literature] 2-grams starting with 'a' and the sentence",
+  "isMultiRegex": false,
+  "description": "Extract all 2-grams and the sentence where each word begins with the letter 'a'."
+},
+{
   "query": "(\\n)!line{[^\"\\n]*!text{\"[^\"]+\"}([^\"\\n]*!text{\"[^\"]+\"})*[^\"\\n]*}(\\n|$)",
   "doc": "\"LatD\", \"LatM\", \"LatS\", \"NS\", \"LonD\", \"LonM\", \"LonS\", \"EW\", \"City\", \"State\"\\n41,    5,   59, \"N\",     80,   39,    0, \"W\", \"Youngstown\", OH\\n42,   52,   48, \"N\",     97,   23,   23, \"W\", \"Yankton\", SD\\n46,   35,   59, \"N\",    120,   30,   36, \"W\", \"Yakima\", WA\\n42,   16,   12, \"N\",     71,   48,    0, \"W\", \"Worcester\", MA\\n43,   37,   48, \"N\",     89,   46,   11, \"W\", \"Wisconsin Dells\", WI\\n36,    5,   59, \"N\",     80,   15,    0, \"W\", \"Winston-Salem\", NC\\n49,   52,   48, \"N\",     97,    9,    0, \"W\", \"Winnipeg\", MB\\n39,   11,   23, \"N\",     78,    9,   36, \"W\", \"Winchester\", VA\\n34,   14,   24, \"N\",     77,   55,   11, \"W\", \"Wilmington\", NC\\n39,   45,    0, \"N\",     75,   33,    0, \"W\", \"Wilmington\", DE\\n48,    9,    0, \"N\",    103,   37,   12, \"W\", \"Williston\", ND\\n41,   15,    0, \"N\",     77,    0,    0, \"W\", \"Williamsport\", PA\\n37,   40,   48, \"N\",     82,   16,   47, \"W\", \"Williamson\", WV\\n33,   54,    0, \"N\",     98,   29,   23, \"W\", \"Wichita Falls\", TX\\n37,   41,   23, \"N\",     97,   20,   23, \"W\", \"Wichita\", KS",
   "title": "[CSV] String fields and lines",
@@ -84,7 +91,7 @@
   "description": "Extract all fields of each line without the aligning spaces."
 },
 {
-  "query": "!motif{G[^EDRKHPFYW].{2}[STAGCN][^P]}",
+  "query": "!motif{F.{10}RE.{72,86}RD.K.{9}[CS]}",
   "doc": ">XP_024849117.1 mitogen-activated protein kinase 10 isoform X5 [Bos taurus]\\nMSKSKVDNQFYSVEVGDSTFTVLKRYQNLKPIGSGAQGIVCAAYDAVLDRNVAIKKLSRPFQNQTHAKRAYRELVLMKCVNHKNIISLLNVFTPQKTLEEFQDVYLVMELMDANLCQVIQMELDHERMSYLLYQMLCGIKHLHSAGIIHRDLKPSNIVVKSDCTLKILDFGLARTAGTSFMMTPYVVTRYYRAPEVILGMGYKENVDIWSVGCIMGEMVRHKILFPGRDYIDQWNKVIEQLGTPCPEFMKKLQPTVRNYVENRPKYAGLTFPKLFPDSLFPADSEHNKLKASQARDLLSKMLVIDPAKRISVDDALQHPYINVWYDPAEVEAPPPQIYDKQLDEREHTIEEWKELIYKEVMNSEEKTKNGVVKGQPSPSAQVQP",
   "title": "[DNA] Motif search of a MAP kinase signature",
   "isMultiRegex": false,

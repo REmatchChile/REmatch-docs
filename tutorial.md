@@ -74,12 +74,11 @@ The simplest form of a RegEx is a word. A word like `gmail` defines the string '
     soto@uc.cl
     sdelcampo@gmail.com
     lpalacios@gmeil.com
-    rramirez@gmsil.com
     pvergara@ing.uc.cl
     ndelafuente@ing.puc.cl
     tnovoa@mail.uc.cl
     nnarea@myucmail.uc.cl
-    nomail@gmail.coom
+    rramirez@gmail.coom
     juansoto@uc.cl
 
 Then, for finding the word 'gmail' in the previous document, we only need to write the following REQL query:

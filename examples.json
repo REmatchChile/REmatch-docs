@@ -113,56 +113,56 @@
 },
 {
   "query": "!output{gmail}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E01: Simple sequence",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' in a list of e-mails."
 },
 {
   "query": "!output{gm.il}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E02: Any character",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm?il' in a list of e-mails where the third letter could be any letter."
 },
 {
   "query": "!output{gm[aeiou]il}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E03: Character set",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter could be any vowel."
 },
 {
   "query": "!output{gm[^aeiou]il}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E04: Negated character set",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter is not a vowel."
 },
 {
   "query": "!output{gmail|uc}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E05: Disjunction",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' or 'uc' in a list of e-mails."
 },
 {
   "query": "!output{ing\\.p?uc}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E06: Optional",
   "isMultiRegex": false,
   "description": "Extract all substrings 'ing.puc' or 'ing.uc' in a list of e-mails."
 },
 {
   "query": "!output{@[a-zA-Z]+\\.uc\\.cl}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E07: Repetition",
   "isMultiRegex": false,
   "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of one or more letters."
 },
 {
   "query": "!output{@[a-zA-Z]{2,5}\\.uc\\.cl}",
-  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.coom\\njuansoto@uc.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E09: Quantifier",
   "isMultiRegex": false,
   "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of two to five letters."

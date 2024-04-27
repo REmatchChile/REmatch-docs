@@ -158,13 +158,20 @@
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E07: Repetition",
   "isMultiRegex": false,
-  "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of one or more letters."
+  "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' where _ can contain any string of one or more letters."
 },
 {
   "query": "!output{@[a-zA-Z]{2,5}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
-  "title": "[Tutorial example] E09: Quantifier",
+  "title": "[Tutorial example] E08: Quantifier",
   "isMultiRegex": false,
-  "description": "Extract all substrings '@_.uc.cl' where _ can contain any string of two to five letters."
-}
+  "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' where _ can contain any string of two to five letters."
+},
+{
+  "query": "!output{@\\w+\\.p?uc\\.cl}",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E09: Special character set",
+  "isMultiRegex": false,
+  "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' by using the special character set \\w"
+},
 ]

@@ -113,7 +113,7 @@
 },
 {
   "query": "!output{gmail}",
-  "doc": "cperez@gmail.com, soto@uc.cl, sdelcampo@gmail.com, lpalacios@gmeil.com, rramirez@gmsil.com, pvergara@ing.uc.cl, ndelafuente@ing.puc.cl, tnovoa@mail.uc.cl, nnarea@myucmail.uc.cl, nomail@gmail.coom, juan.soto@uc.cl", 
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\nrramirez@gmsil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nnomail@gmail.coom\\njuansoto@uc.cl",
   "title": "[Tutorial example] Simple sequence",
   "isMultiRegex": false,
   "description": "Extract all substrings 'gmail' in a list of e-mails."

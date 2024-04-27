@@ -37,7 +37,7 @@ Below, we will introduce REQL to verify simple RegEx patterns in strings and the
 
 # Brief overview of REQL
 
-As we mentioned, REQL is a RegEx-based query language for extracting information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). Then, a user can use REQL syntax as standard RegEx. This syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Specifically, all the operators of REQL are the following:
+As mentioned, REQL is a RegEx-based query language that extracts information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). REQL syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Then, a user can use REQL syntax as standard RegEx. To be more specific, all the operators of REQL are the following:
 
 1. `a`: character (UTF-8)
 2. `.`: any character
@@ -57,9 +57,9 @@ As we mentioned, REQL is a RegEx-based query language for extracting information
 16. `$`: end of document
 17. `!var{e}`: capture variables
 
-One can checked that from 1. to 16. are RegEx operators and, in the absence of capture variables (operator 17.), they will behave similar than in any standard RegEx library. The main distinct operator are *capture variables*, that are similar than capture groups in RegEx but with an **all match** semantics. 
+Operators 1. to 16. are standard RegEx operators, and in the absence of capture variables (operator 17.), they behave similarly to any standard RegEx library. The key difference in REQL is the inclusion of *capture variables*, which work similarly to capture groups from RegEx but with finding all matches. 
 
-In the following, we will cover all the operators displayed above through examples. If you are already a RegEx expert (namely, you know operators 1. to 16.), then you can probably skip the next section and jump directly to the section where capture variables are explained. However, we always recommend to go through the whole tutorial so you can get a better feeling of how REQL and REmatch works. 
+In the following, we will cover all the operators displayed above through examples. Suppose you are already a RegEx expert (namely, you know operators 1 to 16). In that case, you can probably skip the next section and jump directly to the section where capture variables are explained. However, we always recommend going through the whole tutorial so you can get a better feeling of how REQL and REmatch work. So, let's start. 
 
 # Standard RegEx operators in REQL
 

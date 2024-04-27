@@ -173,5 +173,5 @@
   "title": "[Tutorial example] E09: Special character set",
   "isMultiRegex": false,
   "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' by using the special character set \\w"
-},
+}
 ]

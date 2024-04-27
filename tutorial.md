@@ -37,23 +37,29 @@ Below, we will introduce REQL to verify simple RegEx patterns in strings and the
 
 # Brief overview of REQL
 
-- `a`: character (UTF-8)
-- `.`: any character
-- `\.`: escape character
-- `[S]`: character set
-- `[^S]`: negated set
-- `\w`: special character set 
-- `\n`: special symbols
-- `ee`: concatenation
-- `e|e`: disjunction (alternation)
-- `e?`: optional
-- `e*`: zero or more
-- `e+`: one or more
-- `e{n,m}`: at leat n and at most m
-- `(e)`: normal parentheses
-- `^`: beginning of document
-- `$`: end of document
-- `!var{e}`: capture variables
+As we mentioned, REQL is a RegEx-based query language for extracting information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). Then, a user can use REQL syntax as standard RegEx. This syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Specifically, all the operators of REQL are the following:
+
+1. `a`: character (UTF-8)
+2. `.`: any character
+3. `\.`: escape character
+4. `[S]`: character set
+5. `[^S]`: negated set
+6. `\w`: special character set 
+7. `\n`: special symbols
+8. `ee`: concatenation
+9. `e|e`: disjunction (alternation)
+10. `e?`: optional
+11. `e*`: zero or more
+12. `e+`: one or more
+13. `e{n,m}`: at leat n and at most m
+14. `(e)`: normal parentheses
+15. `^`: beginning of document
+16. `$`: end of document
+17. `!var{e}`: capture variables
+
+One can checked that from 1. to 16. are RegEx operators and, in the absence of capture variables (operator 17.), they will behave similar than in any standard RegEx library. The main distinct operator are *capture variables*, that are similar than capture groups in RegEx but with an **all match** semantics. 
+
+In the following, we will cover all the operators displayed above through examples. If you are already a RegEx expert (namely, you know operators 1. to 16.), then you can probably skip the next section and jump directly to the section where capture variables are explained. However, we always recommend to go through the whole tutorial so you can get a better feeling of how REQL and REmatch works. 
 
 # Standard RegEx operators in REQL
 
@@ -176,6 +182,8 @@ Finally, REQL includes common special symbols to refer to a newline or a tab, wh
 
 ## Variables, matches, and spans
 
+- `!var{e}`: capture variables
+
 To understand how to use REQL to extract parts of our strings, let's look at an example. First, recall our running example where we want to extract data from a list of emails like the following:
 
     cperez@gmail.com
@@ -263,36 +271,59 @@ where the same pattern is copied twice on the left- and right-hand side of a dis
 Finally, retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch regarding efficiency. Indeed, REmatch runs as fast as any standard RegEx engine and always looks for all matches. REmatch is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the REmatch algorithm reads a document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless of whether it found ten or 10^10 outputs.
  
 
-## Separators and all matches
+## Specification of REQL queries under all matches
+
+As someone said: "With great power comes great responsibility". Now that REQL finds all matches, one has to be more careful when specifying some queries. For instance, if we want to capture all names of our email list (that is, the strings before the `@`), one is tempting to write:
+
+    !name{\w+}@
+
+However, this query captures all alphanumeric substrings of one or more characters ending with an `@`. It will then find all names and all their suffixes. 
+
+So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows:
+
+    \n!name{\w+}@
+
+This pattern is the same as before, but now we specify that it must start after a new line `\n`. One can check [here] that this will give (almost) all names used in our list of emails. Although this requires a bit more work by being more specific, one usually gains clarity on what is searching for extraction. 
+
+## The beginning and end of a document
 
 - `^`: beginning of document
 - `$`: end of document
 
-As someone said "With great power comes great responsibility", now that REQL finds all matches, one has to be a bit more careful when specifying some queries. For instance, we want to capture all names of our e-mail list, one is tempting to write:
-
-    !name{\w+}@
-
-However, this query captures all alphanumeric substrings of one or more characters that ends with an `@`. Then it will find all names but also all their suffixes. 
-
-So, how can we capture all names? Now that REmatch always founds all matches, we need to be more specific of what we want and declare where the pattern must start, and where it must ends. For example, for the previous query we can do it as follows:
-
-    \n!name{\w+}@
-
-This pattern is the same as before but now we also specify that it must start after a new line `\n`. One can check [here], that this will give (almost) all names used in our list of e-mails. Although this requires a bit more of work by being more specific, one usually gains clarity on what is searching for extraction. 
-
-The user can notice that we almost get all the results, because the first name of the first e-mail is not part of the results. The reason is that the first result doesn't start with a new line, since there is no character before it. To solve this issue, REQL includes the operators `^` and `$` for declaring the beginning and the end of the document, respectively. Then to get all the names of our example, we need to write the following REQL query (try it [here]):
+The user can notice that we almost get all the results in the last example because the first name of the first email is not part of the results. The reason is that the first result doesn't start with a new line since there is no character before it. To solve this issue, REQL includes the operators `^` and `$` for declaring the beginning and the end of the document, respectively. Then, to get all the names of our example, we need to write the following REQL query (try it [here]):
 
     (\n|^)!name{\w+}@
 
-Note that the operators `^` and `$` are not characters, since they just refer to the beginning and the end of the document, respectively. For this reason, REQL doesnt't allow to use the `^` or `$` inside a variable. You can try to use `^` and `$` inside a variable in the REmatch web interface, and you will get an error from the interface. 
+Note that the operators `^` and `$` are not characters since they refer to the beginning and the end of the document, respectively. For this reason, REQL does not allow the use of `^` or `$` inside a variable. You can try to use `^` and `$` inside a variable in the REmatch web interface, but you will get an error from the interface. 
 
-Now that we have introduce all the REQL operators, we end by showing all pairs of name and domain from the emails with the following REQL query (try it [here]):
+Now that we have introduced all the REQL operators, we end by combining all that we learned and showing how to extract all pairs of name/domain from the emails with the following REQL query (try it [here]):
 
     (\n|^)!name{\w+}@!domain{(\w+\.)+\w+}(\n|$)
 
-# Some practical REQL examples
+# Some practical REQL use cases
 
+Now that we have introduced REQL, we present some real use cases where REmatch can make a difference. For more examples, see REmatch's example section [here](https://rematch.cl/examples). 
 
+## DNA sequences  
+
+Motif detection is a key task in DNA analysis. Motifs are represandented as a sequence pattern usually assumed to be related to biological functions. Indeed, RegEx has been extensively used to find motifs in DNA sequences, where the location of such matches is important to understand their impact on an organism. 
+
+For this scenario, we show the advantage of using REmatch to find all motif matches. For instance, the following REQL query searches for the N-myristoylation site motif:
+
+    !motif{G[^EDRKHPFYW].{2}[STAGCN][^P]}
+
+We can evaluate this query with REmatch over the list of proteomes of the zebrafish organism [here](https://rematch.cl/?query=%21motif%7BG%5B%5EEDRKHPFYW%5D.%7B2%7D%5BSTAGCN%5D%5B%5EP%5D%7D&doc=%3EXP_017210497.1+glutamate+%5BNMDA%5D+receptor+subunit+epsilon-2+isoform+X1+%5BDanio+rerio%5D%0AMGVGLAMFKGLYLHSSAMLVSLHLSSSPFSDCRVLSFVSLVSSFKLPLYISLLLLSLFFFPTCESRRGGGIGTPTGGMNSQSIISPPHYPPPGVSPVGPPMSPKFAQGLSIAVILVGNSSEVSLSEGLEKEDFLHVPLPPKVELVTMNETDPKSIINRICALMSRNWLQGVVFGDDTDQEAIAQILDFISAQTHIPILGIRGGSSMIMAAKDDHSMFFQFGPSIEQQASVMLNIMEEYDWYIFSIVTTYYPGHQDFVNRIRSTVDNSFVGWELEEVLLLDMSVDDGDSKIQNQMKKLQSPVILLYCTKEEATTIFEVAHSVGLTGYGYTWIVPSLVAGDTDNVPNVFPTGLISVSYDEWDYGLEARVRDAVAIIAMATSTMMLDRGPHTLLKSGCHGAPDKKGSKSGNPNEVLRYLMNVTFEGRNLSFSEDGFQMHPKLVIILLNKERQYERVGKWENGSLAMKYHVWPRFELYSDAEEREDDHLSIVTLEEAPFVIVEDVDPLSGTCMRNTVPCRKQLKLQNLTGDSGIYIKRCCKGFCIDILKKIAKSVKFTYDLYLVTNGKHGKKINGTWNGMVGEVVLKNAHMAVGSLTINEERSEVIDFSVPFIETGISVMVSRSNGTVSPSAFLEPFSADVWVMMFVMLLIVSAVAVFVFEYFSPVGYNRCLADGREPGGPSFTIGKAIWLLWGLVFNNSVPVQNPKGTTSKIMVSVWAFFAVIFLASYTANLAAFMIQEEYVDQVTGLSDKKFQHPNDFSPPFRFGTVPNGSTERNIRNNYKEMHSYMTSFHQKNVNEALHSLKSGKLDAFIYDAAVLNYMAGRDEGCKLVTIGSGYIFATTGYGIAIQKDSGWKRAVDLAILQLFGDGEMEELEALWLTGICHNEKNEVMSSQLDVDNMAGVFYMLGAAMALSLITFIAEHLFYWQLRFCFMGVCSGKPGMTFSISRGIYSCIHGVQIEENKSALNSPSATMKMNMNNTHSNILRLLRTAKNMTSVPGVNGSPHSALDYSHRESAVYDISEHRRSLAGHSDCKPPPYLPEDNMFSDYVSEVERTFGNLHLKDSNLYQDHYLHHHGGSELALGMSGPLPNRPRSLGSASSLEGGYDCDSLGGGVAPIFTTQPRQSLTHRNREKFDLIAGHPTQSSFKSGLPDLYGKFSFKGGASSSGFIAGHDRYCGGGGVGSGGDDGNIRSDVSDISTHTVTYGNLEGHSKRRKQYRDSLKKRPASAKSRREQDEIELGFRRRPHHTIHHHHHHHPATQAHRSATPPVERKSQRGGNCTSYLFRDKENLRDFYVDQFRAKEGASPWDLDLSDAPGMGGGVGLGGGSCGGVVSSGGAGGACTSLVPMEDFLKGKSKKTECKGGMGGGSPGQQGHACWEKGIGGVGGLAGGDWECRSCHSGGVGSGGSKPVCMHGGGGAGGYPAAGGVGGSSGGSGQISSRPSSATCKRCDSCKKPGNLYDISEDNLLLDQIAGKHPLESGKGGGGTGAQTQVQRRKFGPGGKVLRRQHSYDTFVELQKEGAGRMGGFGGGGGASMLPPPRSVSLKDKDRYMEGASPYAQMFEQYAGGERETSYFGDRGKGGGSSFSLFRGGEGGLHRRSVGERDMRDRDRGMMGGGVGGTRGVGTYSLSKSLYPDKVNQNPFIPTFGDDQCLLHGAKSYYIKKQQAQPQQQQTPQQQQQQLLNNSRADFRGSMGVTSYLPASATSGVLSNVAPRFPKELCLGGPLGNHHGGGPSNNKLLSARDGLGMGQGQRPFNGSSNGHVYEKLSSIESDV&isMultiRegex=false).  It is interesting to verify that REmatch found overlapped matches, while other traditional RegEx engines or wrappers used for DNA analysis do not find these overlapped hits (without using lookaround).
+
+## Linguistic analysis 
+
+Corpus extraction and context analysis are relevant tasks for linguistic analysis, and together with computer science, they have reached big achievements in natural language processing. RegEx engines are a helpful tool for efficient information extraction, giving the possibility, for example, to obtain the context of certain words, morphemes, or any other linguistic object that one can define with regular expressions. 
+
+In this context, suppose that a user wants to process English text into k-grams (k consecutive words in a text) that satisfy some particular pattern. Specifically, suppose this user wants to extract all 2-grams where each word begins with the letter `a`. The user also wants to extract the sentence where the match happens, which could be useful for understanding the context where these 2-grams are used. We can express this task by the following REQL query:
+
+    (^|(\.))!sent{[^.]* !w1{[Aa]\w+} !w2{[Aa]\w+}( [^.]*)?\.}
+
+where `w1` and `w2` variables store the positions of the first and second word, respectively, and `sent` stores the position of the sentence.
+The evaluation of this query over a fragment of the book "What is a man?" by Mark Twain can be checked [here](https://rematch.cl/?query=%28%5E%7C%28%5C.%29%29%21sent%7B%5B%5E.%5D*+%21w1%7B%5BAa%5D%5Cw%2B%7D+%21w2%7B%5BAa%5D%5Cw%2B%7D%28+%5B%5E.%5D*%29%3F%5C.%7D&doc=I+know+them+well.+They+are+extremes%2C+abnormals%3B+their+temperaments+are+as+opposite+as+the+poles.+Their+life-histories+are+about+alike+but+look+at+the+results.&isMultiRegex=false). Notice that finding all matches of `w1` and `w2` plus the context where they occur (i.e., the sentence) cannot be performed by traditional RegEx engines (here, lookaround will not help).
 
 # Multispan capturing
 

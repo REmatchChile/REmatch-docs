@@ -285,11 +285,11 @@ As someone said: "With great power comes great responsibility". Now that REQL fi
 
 However, this query captures all alphanumeric substrings of one or more characters ending with an `@`. It will then find all names and all their suffixes. 
 
-So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows (try it [here](https://rematch.cl/?query=%5Cn%21name%7B%5Cw%2B%7D%40&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
+So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows:
 
     \n!name{\w+}@
 
-This pattern is the same as before, but now we specify that it must start after a new line `\n`. One can check [here] that this will give (almost) all names used in our list of emails. Although this requires a bit more work by being more specific, one usually gains clarity on what is searching for extraction. 
+This pattern is the same as before, but now we specify that it must start after a new line `\n`. One can check [here](https://rematch.cl/?query=%5Cn%21name%7B%5Cw%2B%7D%40&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false) that this will give (almost) all names used in our list of emails. Although this requires a bit more work by being more specific, one usually gains clarity in the query on what is searching for extraction. 
 
 ## The beginning and end of a document
 
@@ -302,7 +302,7 @@ The user can notice that we almost get all the results in the last example becau
 
 Note that the operators `^` and `$` are not characters since they refer to the beginning and the end of the document, respectively. For this reason, REQL does not allow the use of `^` or `$` inside a variable. You can try to use `^` and `$` inside a variable in the REmatch web interface, but you will get an error from the interface. 
 
-Now that we have introduced all the REQL operators, we end by combining all that we learned and showing how to extract all pairs of name/domain from the emails with the following REQL query (try it [here]):
+Now that we have introduced all the REQL operators, we end by combining all that we learned and showing how to extract all pairs of name/domain from the emails with the following REQL query (try it [here](https://rematch.cl/?query=%28%5Cn%7C%5E%29%21name%7B%5Cw%2B%7D%40%21domain%7B%28%5Cw%2B%5C.%29%2B%5Cw%2B%7D%28%5Cn%7C%24%29&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     (\n|^)!name{\w+}@!domain{(\w+\.)+\w+}(\n|$)
 

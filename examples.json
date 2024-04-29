@@ -179,13 +179,27 @@
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E10: Use of capture variables",
   "isMultiRegex": false,
-  "description": "Extract the substrings '@_.p?uc.cl' in variable 'output' and the substring '_' in variable 'x'."
+  "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'output' and the substring '_' in variable 'x'."
 },
 {
   "query": "!email{@!domain{\\w+}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E11: Use of capture variable names",
   "isMultiRegex": false,
-  "description": "Extract the substrings '@_.p?uc.cl' in variable 'email' and the substring '_' in variable 'domain'."
+  "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and the substring '_' in variable 'domain'."
+},
+{
+  "query": "!email{@!domain{\\w+}\\.!domain2{p?uc}\\.!domain3{cl}}",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E12: Use of more capture variables in a single pattern",
+  "isMultiRegex": false,
+  "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and all the substrings using more variables."
+},
+{
+  "query": "@!domain{\\w+}\\.p?uc\\.cl",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E13: No capture variable in the whole pattern",
+  "isMultiRegex": false,
+  "description": "Find the substrings '@_.uc.cl' or '@_.puc.cl' but only capture _ in the variable 'domain'."
 }
 ]

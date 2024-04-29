@@ -207,13 +207,34 @@
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E14: All two letters",
   "isMultiRegex": false,
-  "description": "Find all appearances of two letters."
+  "description": "Extract all appearances of two letters."
 },
 {
   "query": "!substring{\\w+}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E15: All substrings",
   "isMultiRegex": false,
-  "description": "Find all substrings."
+  "description": "Extract all substrings."
+},
+{
+  "query": "\\n!name{\\w+}@",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E16: (Almost) all names",
+  "isMultiRegex": false,
+  "description": "Extract all names except from the first one."
+},
+{
+  "query": "(\\n|^)!name{\\w+}@",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E17: All names",
+  "isMultiRegex": false,
+  "description": "Extract all names including the first one."
+},
+{
+  "query": "(\\n|^)!name{\\w+}@!domain{(\\w+\\.)+\\w+}(\n|$)",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E18: All names and domains",
+  "isMultiRegex": false,
+  "description": "Extract all names and domains from an email list."
 }
 ]

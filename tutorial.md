@@ -250,7 +250,7 @@ In other words, (1) says that one cannot repeat the same variable over a sequenc
 
 ## All matches and without duplicates
 
-A distinguished feature you have probably observed is that when REmatch runs a REQL query, it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in the REmatch web interface over our example document (try it [here]):
+A distinguished feature you have probably observed is that when REmatch runs a REQL query, it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in the REmatch web interface over our example document (try it [here](https://rematch.cl/?query=%21twoletters%7B%5Cw%5Cw%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     !twoletters{\w\w}
 
@@ -262,7 +262,7 @@ you can verify that not all spans are retrieved. This shortcoming of RegEx engin
 
     (?=(\w\w))      (RegEx)
 
-which says "lookahead for the pattern (\w\w) without consuming the letters". The lookaround operators work for some cases, like the previous scenario, but cannot generally work. For instance, if we want to find *all alphanumeric substrings* in our document, we can write the following REQL query:
+which says "lookahead for the pattern (\w\w) without consuming the letters". The lookaround operators work for some cases, like the previous scenario, but cannot generally work. For instance, if we want to find *all alphanumeric substrings* in our document, we can write the following REQL query (try it [here](https://rematch.cl/?query=%21substring%7B%5Cw%2B%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     !substring{\w+}
 
@@ -272,9 +272,9 @@ It is worth noticing that REmatch retrieves all matches and **WITHOUT DUPLICATES
 
     !twoletters{\w\w}|!twoletters{\w\w}
 
-where the same pattern is copied twice on the left- and right-hand side of a disjunction. A user can naively guess that each subpattern will provide a new result, and then REmatch will find each output twice. Fortunately, this is not the case for REmatch evaluation, and each output will be retrieved once, no matter how the query is written. You can test this in the REmatch web interface [here].
+where the same pattern is copied twice on the left- and right-hand side of a disjunction. A user can naively guess that each subpattern will provide a new result, and then REmatch will find each output twice. Fortunately, this is not the case for REmatch evaluation, and each output will be retrieved once, no matter how the query is written.
 
-Finally, retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch regarding efficiency. Indeed, REmatch runs as fast as any standard RegEx engine and always looks for all matches. REmatch is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the REmatch algorithm reads a document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless of whether it found ten or 10^10 outputs.
+Retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch regarding efficiency. Indeed, REmatch runs as fast as any standard RegEx engine and always looks for all matches. REmatch is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the REmatch algorithm reads a document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless of whether it found ten or 10^10 outputs.
  
 
 ## Specification of REQL queries under all matches

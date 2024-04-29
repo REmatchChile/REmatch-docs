@@ -285,7 +285,7 @@ As someone said: "With great power comes great responsibility". Now that REQL fi
 
 However, this query captures all alphanumeric substrings of one or more characters ending with an `@`. It will then find all names and all their suffixes. 
 
-So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows:
+So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows (try it [here](https://rematch.cl/?query=%5Cn%21name%7B%5Cw%2B%7D%40&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     \n!name{\w+}@
 
@@ -296,7 +296,7 @@ This pattern is the same as before, but now we specify that it must start after 
 - `^`: beginning of document
 - `$`: end of document
 
-The user can notice that we almost get all the results in the last example because the first name of the first email is not part of the results. The reason is that the first result doesn't start with a new line since there is no character before it. To solve this issue, REQL includes the operators `^` and `$` for declaring the beginning and the end of the document, respectively. Then, to get all the names of our example, we need to write the following REQL query (try it [here]):
+The user can notice that we almost get all the results in the last example because the first name of the first email is not part of the results. The reason is that the first result doesn't start with a new line since there is no character before it. To solve this issue, REQL includes the operators `^` and `$` for declaring the beginning and the end of the document, respectively. Then, to get all the names of our example, we need to write the following REQL query (try it [here](https://rematch.cl/?query=%28%5Cn%7C%5E%29%21name%7B%5Cw%2B%7D%40&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     (\n|^)!name{\w+}@
 

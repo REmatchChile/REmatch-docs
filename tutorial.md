@@ -218,17 +218,17 @@ When we run a REQL query over a document, REmatch returns all the **matches** of
 
 ## Use and restrictions of variables
 
-In REQL, one can use up to 32 variables in a single pattern. For instance, if we also want to capture the other domains in the same pattern, we can use more variables to capture them (try it [here]):
+In REQL, one can use up to 32 variables in a single pattern. For instance, if we also want to capture the other domains in the same pattern, we can use more variables to capture them (try it [here](https://rematch.cl/?query=%21email%7B%40%21domain%7B%5Cw%2B%7D%5C.%21domain2%7Bp%3Fuc%7D%5C.%21domain3%7Bcl%7D%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     !email{@!domain{\w+}\.!domain2{p?uc}\.!domain3{cl}}
 
-Although we have always placed a variable surrounding the whole pattern (like `!output{...}`), this is unnecessary if we don't want to capture the span where all the pattern holds. For instance, if we want only to capture the domain, and not the whole right-hand side of an e-mail, we can write the query (try it [here]):
+Although we have always placed a variable surrounding the whole pattern (like `!output{...}`), this is unnecessary if we don't want to capture the span where all the pattern holds. For instance, if we want only to capture the domain, and not the whole right-hand side of an e-mail, we can write the query (try it [here](https://rematch.cl/?query=%40%21domain%7B%5Cw%2B%7D%5C.p%3Fuc%5C.cl&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     @!domain{\w+}\.p?uc\.cl
 
-This feature is helpful for information extraction since it allows one to check the existence of a pattern before (like `@`) or after (like `\.p?uc\.cl`) without capturing it. This feature is another big difference with RegEx, where the patterns before or after a capturing group can affect the extraction process without retrieving all the outputs. Indeed, for checking patterns before or after a capturing group without consuming, RegEx provides *lookaround* operators, which are not necessary for REQL. See more discussion about this in the next subsection. 
+This feature is helpful for information extraction since it allows one to check the existence of a pattern before (like `@`) or after (like `\.p?uc\.cl`) without capturing it. This feature is another big difference with standard RegEx, where the patterns before or after a capturing group can affect the extraction process without retrieving all the outputs. Indeed, for checking patterns before or after a capturing group without consuming, RegEx provides *lookaround* operators, which are not necessary for REQL. See more discussion about this feature in the next subsection. 
 
-In general, one can put a variable in any place of the pattern for capturing a span. However, there are four restrictions for correctly interpreting the meaning of a variable. The restrictions are the following.
+In general, one can put a variable in any place of the pattern for capturing a span. However, there are four restrictions for correctly interpreting the meaning of a variable in REQL. The restrictions are the following.
 
 1. *One cannot concatenate two subqueries `e1` and `e2` (namely, `e1e2`) when`e1` and `e2` have some variable name in common.*
     - `!x{a}!y{b}`is allowed.
@@ -246,7 +246,7 @@ In general, one can put a variable in any place of the pattern for capturing a s
     - `!x{a+}` is allowed.
     - `!x{a*}` or `!x{a?}` is **NOT allowed**.
 
-In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that disjunction needs the same variables, (3) that one cannot capture inside a repetition or a quantifier, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In a while, we will show the novel feature of *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
+In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that the inputs for a disjunction need the same variable names, (3) that one cannot capture inside a repetition or a quantifier, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In case you still feel that these rules restrict the extraction process, we will later present in this tutorial the novel feature *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
 
 ## All matches and without duplicates
 

@@ -37,7 +37,9 @@ Below, we will introduce REQL to verify simple RegEx patterns in strings and the
 
 # Brief overview of REQL
 
-As mentioned, REQL is a RegEx-based query language that extracts information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). REQL syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Then, a user can use REQL syntax as standard RegEx. To be more specific, all the operators of REQL are the following:
+As mentioned, REQL is a RegEx-based query language for extracting information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). REQL syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Then, a user can use REQL syntax as standard RegEx. 
+
+To be more specific, all the operators of REQL are the following:
 
 1. `a`: character (UTF-8)
 2. `.`: any character
@@ -57,9 +59,11 @@ As mentioned, REQL is a RegEx-based query language that extracts information fro
 16. `$`: end of document
 17. `!var{e}`: capture variables
 
-Operators 1. to 16. are standard RegEx operators, and in the absence of capture variables (operator 17.), they behave similarly to any standard RegEx library. The key difference in REQL is the inclusion of *capture variables*, which work similarly to capture groups from RegEx but with finding all matches. 
+Operators 1. to 16. are standard RegEx operators, and in the absence of capture variables (operator 17.), they behave similarly to any standard RegEx library. The key difference in REQL is the inclusion of *capture variables*, which work similarly to RegEx's capture groups but with a novel semantics for finding all matches.  
 
-In the following, we will cover all the operators displayed above through examples. Suppose you are already a RegEx expert (namely, you know operators 1 to 16). In that case, you can probably skip the next section and jump directly to the section where capture variables are explained. However, we always recommend going through the whole tutorial so you can get a better feeling of how REQL and REmatch work. So, let's start. 
+This tutorial will cover all the operators displayed above through examples. We will start by covering the standard RegEx operators (1. to 14.) and then present capture variables. Note that we will explain the operators for the beginning and end of a document (operators 15. and 16.) later in the tutorial after we introduce capture variables.
+
+If you're already familiar with RegEx operators 1. to 14., you might consider skipping ahead to the section on capture variables. However, we strongly recommend going through the entire tutorial. Even if you're an expert, this will give you a comprehensive understanding of how REQL and REmatch work, enhancing your overall learning experience. So, let's get started. 
 
 # Standard RegEx operators in REQL
 
@@ -157,7 +161,7 @@ The RegEx subpattern `[a-zA-Z]+` allows us to find one or more letters in an ema
 - `\w`: special character set 
 - `\n`: special symbols
 
-In RegEx, allowing some operators to refer to a class of special symbols is useful. For example, RegEx allows the use of `\w` to refer to the class of alphanumeric and underscore characters; namely, `\w` is equivalent to `[A-Za-z0-9_]`. For our running example, we can use `\w` to capture the right-hand side of emails as follows (try it [here]):
+In RegEx, allowing some operators to refer to a class of special symbols is useful. For example, RegEx allows the use of `\w` to refer to the class of alphanumeric and underscore characters; namely, `\w` is equivalent to `[A-Za-z0-9_]`. For our running example, we can use `\w` to capture the right-hand side of emails as follows (try it [here](https://rematch.cl/?query=%21output%7B%40%5Cw%2B%5C.p%3Fuc%5C.cl%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     !output{@\w+\.p?uc\.cl}
 
@@ -192,12 +196,12 @@ To understand how to use REQL to extract parts of our strings, let's look at an 
     soto@uc.cl
     sdelcampo@gmail.com
     lpalacios@gmeil.com
-    rramirez@gmsil.com
     pvergara@ing.uc.cl
     ndelafuente@ing.puc.cl
+    ldelgado@gmsil.com
     tnovoa@mail.uc.cl
     nnarea@myucmail.uc.cl
-    nomail@gmail.coom
+    rramirez@gmail.com
     juansoto@uc.cl
 
 Consider our last example for checking the right side of a mail, only now we'll add variables to specify the parts we want to extract (try it [here]):

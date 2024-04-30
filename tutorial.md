@@ -402,8 +402,11 @@ As you can expect, users can also use repetition zero-or-more or quantifiers for
 
 ## Multimatch by using disjunctions or optionals
 
-We end by explaining how to use disjunctions or optionals for multicapturing. These two operators are useful for capturing empty list of spans when we have several alternatives. The best operator for illustrating this feature is optional. Recall that our emails list have two or three subdomains. Then a user may want to extract the last two subdomains in the variable `subdomains`, and the first subdomain in a fresh variable, called `extrasubdomain`. Note that this may, or may not exists, and then optional `?` is useful for this task. Let's see this with the following query (try it [here]):
+- `!x{e}|!y{e}`: use different set of variables in disjunctions 
+- `!x{e}?`: use optional over variables
+
+We end by explaining how to use disjunction or optional for multimatch capturing. These two operators are helpful for capturing an empty list of spans when we have optional data that is not present. , Of course, the best operator for illustrating this feature is optional `?`. Recall that our emails in the list may have two or three subdomains. Then a user may want to extract the last two subdomains in the variable `subdomains`, which always appear, and the first subdomain in a fresh variable called `extra subdomain.` Note that this third subdomain may or may not exist, and the optional `?` is useful for this task. Let's see this with the following query (try it [here]):
 
     @(!extrasubdomain{\w+}\.)?!subdomains{\w+}\.!subdomains{\w+}(\n|$)
 
-If we run this query over the data, we can see that, when an email has two subdomains, the variable `extrasubdomain` has an empty list of spans, and instead, it has a span when the email has three subdomains. This is a clear example of an optional information, that we can capture with a multimatch when it exists. 
+If we run this query over the data, we can check that when an email has two subdomains, the variable `extrasubdomain` has an empty list of spans, and instead, it has a span when the email has three subdomains. This is a clear example of optional information that we can capture with a multimatch when it exists. One can think of several use cases where optional data appears, and then, a variable plus `?` helps to extract this data when it is available. 

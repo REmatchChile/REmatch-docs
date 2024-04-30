@@ -51,8 +51,8 @@ To be more specific, all the operators of REQL are the following:
 8. `ee`: concatenation
 9. `e|e`: disjunction (alternation)
 10. `e?`: optional
-11. `e*`: zero or more
-12. `e+`: one or more
+11. `e*`: zero-or-more
+12. `e+`: one-or-more
 13. `e{n,m}`: at leat n and at most m
 14. `(e)`: normal parentheses
 15. `^`: beginning of document
@@ -140,8 +140,8 @@ where the `\.` is to declare a dot in the query (which must be escaped, as we ex
 
 ## Repetitions and quantifiers
 
-- `e*`: zero or more
-- `e+`: one or more
+- `e*`: zero-or-more
+- `e+`: one-or-more
 - `e{n,m}`: at leat n and at most m
 
 One of the most important classes of operators in REQL is repetition. So far, REQL allows us to identify patterns within a string but with a bounded number of letters. For example, an expression like `gmail|p?uc` will enable us to identify the occurrence of 'gmail', 'puc' or 'uc' in the string, but this is a limited number of possibilities.
@@ -150,9 +150,9 @@ We use the `+` and `*` operators to define patterns with *one-or-more* or *zero-
 
     !output{@[a-zA-Z]+\.p?uc\.cl} 
 
-In this last query, the `[a-zA-Z]+` means that we want to see a letter (upper or lower case, that is, `[a-zA-Z]`) one or more times. On the other hand, if we want to allow emails like '@.uc.cl', then we can use the `*` operator and write the expression `@[a-zA-Z]*\.p?uc\.cl` where now the `[a-zA-Z]*` means that we want to see a letter zero or more times.
+In this last query, the `[a-zA-Z]+` means that we want to see a letter (upper or lower case, that is, `[a-zA-Z]`) one-or-more times. On the other hand, if we want to allow emails like '@.uc.cl', then we can use the `*` operator and write the expression `@[a-zA-Z]*\.p?uc\.cl` where now the `[a-zA-Z]*` means that we want to see a letter zero-or-more times.
 
-The RegEx subpattern `[a-zA-Z]+` allows us to find one or more letters in an email, but there is no limit to the length of the word. In fact, the pattern `@[a-zA-Z]+\.p?uc\.cl` will match the string '@a.uc.cl' or the string '@aaaaaaaaaaaaaaaaaaaaaaa.uc.cl' (20 letters or more) or with any length between @ and the first period. We often do not want an arbitrary number of repetitions of a pattern but rather a number of repetitions within a range. For this, one can use the repetition operator with range `{n,m}`, which means that the pattern will repeat n-to-m times where n and m are numbers. Going back to our example, if we want the domain word to be between 2 to 5 characters, then we use (try it [here](https://rematch.cl/?query=%21output%7B%40%5Ba-zA-Z%5D%7B2%2C5%7D%5C.p%3Fuc%5C.cl%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
+The RegEx subpattern `[a-zA-Z]+` allows us to find one-or-more letters in an email, but there is no limit to the length of the word. In fact, the pattern `@[a-zA-Z]+\.p?uc\.cl` will match the string '@a.uc.cl' or the string '@aaaaaaaaaaaaaaaaaaaaaaa.uc.cl' (20 letters or more) or with any length between @ and the first period. We often do not want an arbitrary number of repetitions of a pattern but rather a number of repetitions within a range. For this, one can use the repetition operator with range `{n,m}`, which means that the pattern will repeat n-to-m times where n and m are numbers. Going back to our example, if we want the domain word to be between 2 to 5 characters, then we use (try it [here](https://rematch.cl/?query=%21output%7B%40%5Ba-zA-Z%5D%7B2%2C5%7D%5C.p%3Fuc%5C.cl%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiRegex=false)):
 
     !output{@[a-zA-Z]{2,5}\.p?uc\.cl} 
 
@@ -238,15 +238,15 @@ In general, one can put a variable in any place of the pattern for capturing a s
     - `!x{a}|!x{b}` is allowed. 
     - `!x{a}|!y{b}` is **NOT allowed**.
 
-3. *One cannot use repetitions `*` (zero or more) or `+` (one or more), or the quantifiers `{n,m}` over a subquery `e` that contains variables.*
-    - `!x{a+}`, `!x{!y{a}b*}` or `!x{a}b?` is allowed.
-    - `!x{a}+`, `!x{!y{a}*b}` or `!x{a}?b` is **NOT allowed**.
+3. *One cannot use repetitions `*` (zero-or-more) or `+` (one-or-more), quantifiers `{n,m}`, or optionals `?` over a subquery `e` that contains variables.*
+    - `!x{a+}`, `!x{a}b{2,3}`, or `!x{a}b?` is allowed.
+    - `!x{a}+`, `!x{a}{2,3}b`, or `!x{a}?b` is **NOT allowed**.
 
 4. *One cannot put a variable over a subquery `e` that can match with an 'empty string'.*
     - `!x{a+}` is allowed.
     - `!x{a*}` or `!x{a?}` is **NOT allowed**.
 
-In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that the inputs for a disjunction need the same variable names, (3) that one cannot capture inside a repetition or a quantifier, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In case you still feel that these rules restrict the extraction process, we will later present in this tutorial the novel feature *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
+In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that the inputs for a disjunction need the same variable names, (3) that one cannot capture inside a repetition, a quantifier, or an optional, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In case you still feel that these rules restrict the extraction process, we will later present in this tutorial the novel feature *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
 
 ## All matches and without duplicates
 
@@ -266,7 +266,7 @@ which says "lookahead for the pattern (\w\w) without consuming the letters". The
 
     !substring{\w+}
 
-that searches for all appearances of one or more alphanumeric symbols. One can test this query in the REmatch web interface and see that it retrieves all substrings. Note that this query cannot be defined using standard RegEx, no matter the operators one uses. Indeed, one can go through the examples in REmatch ([here](https://rematch.cl/examples)) and check that there are several practical cases where **ALL MATCHES** is helpful for information extraction (like DNA, literature, etc), but one cannot perform the same task with RegEx. 
+that searches for all appearances of one-or-more alphanumeric symbols. One can test this query in the REmatch web interface and see that it retrieves all substrings. Note that this query cannot be defined using standard RegEx, no matter the operators one uses. Indeed, one can go through the examples in REmatch ([here](https://rematch.cl/examples)) and check that there are several practical cases where **ALL MATCHES** is helpful for information extraction (like DNA, literature, etc), but one cannot perform the same task with RegEx. 
 
 It is worth noticing that REmatch retrieves all matches and **WITHOUT DUPLICATES**, no matter how one writes the REQL query. For instance, one can use the following REQL query:
 
@@ -283,7 +283,7 @@ As someone said: "With great power comes great responsibility". Now that REQL fi
 
     !name{\w+}@
 
-However, this query captures all alphanumeric substrings of one or more characters ending with an `@`. It will then find all names and all their suffixes. 
+However, this query captures all alphanumeric substrings of one-or-more characters ending with an `@`. It will then find all names and all their suffixes. 
 
 So, how can we capture all names? Now that REmatch always finds all matches, we must be more specific about what we want and declare where the pattern must start and end. For example, for the previous query, we can do it as follows:
 
@@ -331,9 +331,79 @@ In this context, suppose that a user wants to process English text into k-grams 
 where `w1` and `w2` variables store the positions of the first and second word, respectively, and `sent` stores the position of the sentence.
 The evaluation of this query over a fragment of the book "What is a man?" by Mark Twain can be checked [here](https://rematch.cl/?query=%28%5E%7C%28%5C.%29%29%21sent%7B%5B%5E.%5D*+%21w1%7B%5BAa%5D%5Cw%2B%7D+%21w2%7B%5BAa%5D%5Cw%2B%7D%28+%5B%5E.%5D*%29%3F%5C.%7D&doc=I+know+them+well.+They+are+extremes%2C+abnormals%3B+their+temperaments+are+as+opposite+as+the+poles.+Their+life-histories+are+about+alike+but+look+at+the+results.&isMultiRegex=false). Notice that finding all matches of `w1` and `w2` plus the context where they occur (i.e., the sentence) cannot be performed by traditional RegEx engines (here, lookaround will not help).
 
-# Multispan capturing
+# Multimatch capturing
 
-** TODO: CAMBIAR PAGINA A QUE DIGA MULTI-SPAN Y NO MULTI-REGEX **
+## Motivation of using multimatch capturing
 
+REQL and RegEx are helpful languages for extracting information from unstructured data, like text, but sometimes they are not powerful enough for some tasks. Indeed, several times after extracting data with REQL or RegEx, we need to postprocess the output to find the real information we need. For example, this happens when we need to extract several fields but do not know how many in advance. Unfortunately, REQL (and also RegEx) only provides a fixed number of variables per query, and then, knowing the number of fields in advance is necessary to have several variables for extracting each field. 
 
+To be more concrete, let's come back to our running example with the list of emails:
 
+    cperez@gmail.com
+    soto@uc.cl
+    sdelcampo@gmail.com
+    lpalacios@gmeil.com
+    pvergara@ing.uc.cl
+    ndelafuente@ing.puc.cl
+    ldelgado@gmsil.com
+    tnovoa@mail.uc.cl
+    nnarea@myucmail.uc.cl
+    rramirez@gmail.com
+    juansoto@uc.cl
+
+Suppose we now want to extract all subdomains inside a domain for each email. For instance, from `cperez@gmail.com` we want to get `gmail` and `com`, and from `pvergara@ing.uc.cl` we want to get `ing`, `uc`, and `cl`. The problem is that we need to know how many subdomains each email has. One possibility could be to extract the whole domain with the following REQL query:
+
+    @!domain{(\w+\.)+\w+}(\n|$)
+
+and postprocess each output (for example, with Python), splitting the subdomains by using the dot. Until now, this was the only solution that RegEx users had, which involved a third-party language like Python to concrete the task. Fortunately, we introduced the idea of **multimatch** in REQL, which allows us to extract a list of spans in each variable and provide a solution to these and more sophisticated use cases that usually appear in practice. 
+
+## Multimatch = list of spans
+
+Roughly speaking, the idea of multimatch is that each variable stores a *list of spans*, instead of a single span (like it was traditionally in RegEx). For the subdomain use case above, a multimatch can have a variable `subdomains` that stores the list of spans for all the subdomains appearing in an e-mail, which could be two, three, or more. The list of spans is not bounded, and then, depending on the input, a user can capture more or fewer spans to iterate over them later. 
+
+With multimatch, we liberate you from the restrictions 1. to 3. over variables, as explained in the section "*Use and restrictions of variables*". You can now freely repeat variables, opening up new possibilities in your programming. Thus, we now allow these queries for multimatch capturing:
+
+- `!x{e}!x{e}`: repeat variables in sequences
+- `!x{e}+`: use repetitions *one-or-more* over variables
+- `!x{e}*`: use repetitions *zero-or-more* over variables 
+- `!x{e}{n,m}`: use quantifiers over variables
+- `!x{e}|!y{e}`: use different set of variables in disjunctions 
+- `!x{e}?`: use optional over variables
+
+Recall that we banned these queries for "singlematch" REQL, and now they are valid for multimatch. Intuitively, the query `!x{a}!x{b}` will have a multimatch output where variable `x` will contain two spans (one for the letter `a` and one for letter `b`), and `!x{a}+` the multimatch output where `x` will contain one-or-more spans (one for each letter `a` that appears in a sequence). 
+
+To truly grasp the power of multimatch capturing, let's delve into some examples. These will demonstrate the consequences of leveraging each restriction of singlematch REQL, showing you the potential of multimatch in your programming tasks. 
+
+## Multimatch by repeating variables in sequences
+
+- `!x{e}!x{e}`: repeat variables in sequences
+
+We start with the most direct way of capturing multimatches by repeating the same variable in a query. To see the power of this feature, consider that you want to extract the subdomains of emails with only three subdomains, like `@ing.puc.cl`, but you want to use a single variable. With multimatch capturing, we can do it as follows (try it [here]):
+
+    @!subdomains{\w+}\.!subdomains{\w+}\.!subdomains{\w+}(\n|$)
+
+In this query, you'll notice that the variable `subdomains` is repeated three times, once for each substring in an email domain. When executed in REmatch's web interface, you'll see one output for each email with three subdomains, and the variable `subdomains` will contain a list of three spans, just as you'd expect. It's important to remember that this functionality is not available in singlematch REQL or even in standard RegEx.
+
+Note that to allow multimatch capturing in REmatch, one must press the **Multi** button at the right of the query box. Although multimatch is more powerful than singlematch capturing, this new power for information extraction is non-standard (no library uses multimatches), and users could feel confused in a first approach (think that already capturing all matches with REQL can be confusing). For this reason, users must explicitly say if they want to use multimatch capturing in REmatch's web interface and also in REmatch's libraries.
+
+## Multimatch by using repetitions or quantifiers over variables
+
+- `!x{e}+`: use repetitions *one-or-more* over variables
+- `!x{e}*`: use repetitions *zero-or-more* over variables 
+- `!x{e}{n,m}`: use quantifiers over variables
+
+Repeating a variable in a sequence shows the use of multimatch capturing, but we still need to solve our original problem of several subdomains. Indeed, we are still force to capture a bounded number of spans for each multimatch. We can use repetitions and quantifiers over variables to go beyond a fixed number of spans. Let's return to our motivating examples of subdomains to exemplify this feature. With the following query, we can extract all subdomains for each email in the list (try it [here]):
+
+    @(!subdomains{\w+}\.)+!subdomains{\w+}(\n|$)
+
+Note that in this query, we not only use the repetition of the variable `subdomains` but also apply the repetition one-or-more over the first appearance of `subdomains`. This approach allows us to capture a list of one or more spans with the first 'subdomains ', and the last `subdomains` will capture the last span (after the last dot). When we run this query over the emails list, we observe that there is one output for each email where the variable contains the corresponding list of subdomains. This means that regardless of the number of subdomains an email has, the `subdomains` variable will capture all of them, effectively addressing our initial motivation for multimatch capturing. 
+
+As you can expect, users can also use repetition zero-or-more or quantifiers for multmatch capturing. Similar than the example above, these operators increase the power of multimatch capturing for finding an unbounded number of spans. We invite the reader to try these operators by modifying the previous example and see their output. 
+
+## Multimatch by using disjunctions or optionals
+
+We end by explaining how to use disjunctions or optionals for multicapturing. These two operators are useful for capturing empty list of spans when we have several alternatives. The best operator for illustrating this feature is optional. Recall that our emails list have two or three subdomains. Then a user may want to extract the last two subdomains in the variable `subdomains`, and the first subdomain in a fresh variable, called `extrasubdomain`. Note that this may, or may not exists, and then optional `?` is useful for this task. Let's see this with the following query (try it [here]):
+
+    @(!extrasubdomain{\w+}\.)?!subdomains{\w+}\.!subdomains{\w+}(\n|$)
+
+If we run this query over the data, we can see that, when an email has two subdomains, the variable `extrasubdomain` has an empty list of spans, and instead, it has a span when the email has three subdomains. This is a clear example of an optional information, that we can capture with a multimatch when it exists. 

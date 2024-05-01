@@ -412,11 +412,11 @@ We end by explaining how to use disjunction or optional for multimatch capturing
 If we run this query over the data, we can check that when an email has two subdomains, the variable `extra subdomain` is empty; that is, it has an empty list of spans. Instead, it has a span when the email has three subdomains. This case is an example of optional information that we can capture with a multimatch when it exists. One can think of several use cases where optional data appears, and then variables plus `?` help to extract this data when it is available. 
 
 Finally, disjunction provides a more general form of adding alternatives for multimatch capturing. Similar to RegEx, disjunction `|` allows for choosing between several alternatives, and then one can select which variables save the spans. To illustrate this, suppose now that the user wants to extract the subdomains, but in case an email has three subdomains, then the user wants to store the first and second subdomain in special variables, as follows (try it [here]):
+    
     @(!subdomain1{\w+}\.!subdomain2{\w+}|!subdomain{\w+})\.!subdomain{\w+}(\n|$)
 
 One can see that the subquery `(!subdomain1{\w+}\.!subdomain2{\w+}|!subdomain{\w+})` does not respect the restrictions from singlematch REQL: the left-hand side of `|` uses variables `subdomain1` and `subdomain2`, and the right-hand side use just variable `subdomain`. The advantage here is that if the email has three subdomains, it will use the left-hand side, and if it has two, it will use the right-hand side. Note that variables will capture different spans depending on the number of subdomains. 
 
-## Examples for multimatch capturing
+## More examples for multimatch capturing
 
-To understand other uses of multimatch capturing, we refer the reader to our section of examples [here], where it can find practical examples of multimatch capturing marked with the tag `MultiMatch`.
-
+To see other uses of multimatch capturing, we refer to our section of examples [here](https://rematch.cl/examples), where one can find practical use cases of multimatch capturing marked with the tag `MultiMatch`.

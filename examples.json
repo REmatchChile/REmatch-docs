@@ -259,10 +259,10 @@
   "description": "Extract the last two subdomains of an e-mail in a single variable and the third subdomain in an extra variable when it exists."
 },
 {
-  "query": "@(!subdomain1{\\w+}\\.!subdomain2{\\w+}|!subdomain{\\w+})\\.!subdomain{\\w+}(\\n|$)",
+  "query": "@(!subdomain1{\\w+}\\.!subdomain2{\\w+}|!subdomains{\\w+})\\.!subdomains{\\w+}(\\n|$)",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E22: Use of disjunction for multimatch capturing",
   "isMultiMatch": true,
-  "description": "Extract the subdomains in a single variable when there are two and in three variables when there are three.."
+  "description": "Extract the subdomains in a single variable when there are two and in three variables when there are three."
 }
 ]

@@ -54,6 +54,6 @@ REmatch's multimatch feature significantly enhances the capabilities of informat
 
 ## Try REmatch!
 
-We invite you to explore REmatch and learn to use REQL from this website. The section [examples] contains more REQL queries and use cases. Further, the [REQL tutorial] will help you to learn how to extract information with REQL features like capturing variables, its all-match semantics, and multimatch capturing. 
+We invite you to explore REmatch and learn to use REQL from this website. The section [examples](https://rematch.cl/examples) contains more REQL queries and use cases. Further, the [REQL tutorial](https://rematch.cl/tutorial) will help you to learn how to extract information with REQL features like capturing variables, its all-match semantics, and multimatch capturing. 
 
 You can also take a look at the insides of REmatch's engine by reading our [academic paper](https://www.vldb.org/pvldb/vol16/p2792-vrgoc.pdf), examining its source code on [GitHub](https://github.com/REmatchChile), or by experimenting with a version of REmatch in your favorite programming language like C++ or Python.

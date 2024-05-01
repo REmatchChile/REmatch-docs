@@ -374,7 +374,7 @@ Recall that we banned these queries for "singlematch" REQL, and now they are val
 
 To truly grasp the power of multimatch capturing, let's delve into some examples. These will demonstrate the consequences of leveraging each restriction of singlematch REQL, showing you the potential of multimatch in your programming tasks. 
 
-## Multimatch by repeating variables in sequences
+## Repeating variables in sequences
 
 - `!x{e}!x{e}`: repeat variables in sequences
 
@@ -386,7 +386,7 @@ In this query, you'll notice that the variable `subdomains` is repeated three ti
 
 Note that to allow multimatch capturing in REmatch, one must press the **Multi** button at the right of the query box. Although multimatch is more powerful than singlematch capturing, this new power for information extraction is non-standard (no library uses multimatches), and users could feel confused in a first approach (think that already capturing all matches with REQL can be confusing). For this reason, users must explicitly say if they want to use multimatch capturing in REmatch's web interface and also in REmatch's libraries.
 
-## Multimatch by using repetitions or quantifiers over variables
+## Using repetitions or quantifiers over variables
 
 - `!x{e}+`: use repetitions *one-or-more* over variables
 - `!x{e}*`: use repetitions *zero-or-more* over variables 
@@ -400,13 +400,23 @@ Note that in this query, we not only use the repetition of the variable `subdoma
 
 As you can expect, users can also use repetition zero-or-more or quantifiers for multmatch capturing. Similar than the example above, these operators increase the power of multimatch capturing for finding an unbounded number of spans. We invite the reader to try these operators by modifying the previous example and see their output. 
 
-## Multimatch by using disjunctions or optionals
+## Using disjunctions or optionals over variables
 
 - `!x{e}|!y{e}`: use different set of variables in disjunctions 
 - `!x{e}?`: use optional over variables
 
-We end by explaining how to use disjunction or optional for multimatch capturing. These two operators are helpful for capturing an empty list of spans when we have optional data that is not present. , Of course, the best operator for illustrating this feature is optional `?`. Recall that our emails in the list may have two or three subdomains. Then a user may want to extract the last two subdomains in the variable `subdomains`, which always appear, and the first subdomain in a fresh variable called `extra subdomain.` Note that this third subdomain may or may not exist, and the optional `?` is useful for this task. Let's see this with the following query (try it [here]):
+We end by explaining how to use disjunction or optional for multimatch capturing. These two operators help capture empty lists of spans when we have optional data that is not present. Of course, the best operator for illustrating this feature is optional `?`. Recall that our emails in the list may have two or three subdomains. Then a user may want to extract the last two subdomains in the variable `subdomains`, which always appear, and the first subdomain in a fresh variable called `extrasubdomain.` Note that this third subdomain may or may not exist, and the optional `?` is useful for this task. Let's see this with the following query (try it [here]):
 
     @(!extrasubdomain{\w+}\.)?!subdomains{\w+}\.!subdomains{\w+}(\n|$)
 
-If we run this query over the data, we can check that when an email has two subdomains, the variable `extrasubdomain` has an empty list of spans, and instead, it has a span when the email has three subdomains. This is a clear example of optional information that we can capture with a multimatch when it exists. One can think of several use cases where optional data appears, and then, a variable plus `?` helps to extract this data when it is available. 
+If we run this query over the data, we can check that when an email has two subdomains, the variable `extra subdomain` is empty; that is, it has an empty list of spans. Instead, it has a span when the email has three subdomains. This case is an example of optional information that we can capture with a multimatch when it exists. One can think of several use cases where optional data appears, and then variables plus `?` help to extract this data when it is available. 
+
+Finally, disjunction provides a more general form of adding alternatives for multimatch capturing. Similar to RegEx, disjunction `|` allows for choosing between several alternatives, and then one can select which variables save the spans. To illustrate this, suppose now that the user wants to extract the subdomains, but in case an email has three subdomains, then the user wants to store the first and second subdomain in special variables, as follows (try it [here]):
+    @(!subdomain1{\w+}\.!subdomain2{\w+}|!subdomain{\w+})\.!subdomain{\w+}(\n|$)
+
+One can see that the subquery `(!subdomain1{\w+}\.!subdomain2{\w+}|!subdomain{\w+})` does not respect the restrictions from singlematch REQL: the left-hand side of `|` uses variables `subdomain1` and `subdomain2`, and the right-hand side use just variable `subdomain`. The advantage here is that if the email has three subdomains, it will use the left-hand side, and if it has two, it will use the right-hand side. Note that variables will capture different spans depending on the number of subdomains. 
+
+## Examples for multimatch capturing
+
+To understand other uses of multimatch capturing, we refer the reader to our section of examples [here], where it can find practical examples of multimatch capturing marked with the tag `MultiMatch`.
+

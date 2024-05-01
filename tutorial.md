@@ -1,5 +1,13 @@
 
-# Motivation of using REQL
+# REQL tutorial
+
+What is the motivation for learning and using REQL? How does REQL relate to RegEx patterns? What are the new features of REmatch compared to standard RegEx engines? 
+
+This tutorial will teach you how to use REQL (Regular Expression Query Language) in REmatch's web interface. We start this tutorial by showing some motivation for learning and using REQL. After this motivation, we go into REQL, beginning with a brief overview of the operators and their relation to RegEx patterns. 
+
+We divide the technical content of this tutorial into three parts: (1) learning RegEx operators in REQL, (2) learning how to use variables in REQL and capture all matches, and (3) learning how to use multimatch capturing. If you are familiar with RegEx patterns, you can move directly to parts (2) and (3) to learn the new features of REmatch compared to standard RegEx engines. 
+
+## Motivation of using REQL
 
 Suppose you want to do a linguistic analysis focused on Chile's relations with its neighboring countries. A possible starting point would be to analyze the Wikipedia page corresponding to the History of Chile. For example, below is the summary of the Wikipedia page from Chile (from English Wikipedia) provided in plain text format.
 
@@ -35,7 +43,7 @@ This pattern describes the extraction task that REmatch should do (we will come 
 
 Below, we will introduce REQL to verify simple RegEx patterns in strings and then use these patterns to extract information from documents with the REmatch library. We will start by introducing the most common RegEx operators and then show the main features of REQL for extracting information from documents. 
 
-# Brief overview of REQL
+## Brief overview of REQL
 
 As mentioned, REQL is a RegEx-based query language for extracting information from text. REQL includes the main operators used in the POSIX standard and Perl-compatible regular expressions (PCRE). REQL syntax includes any UTF-8 character, character sets including PCRE abbreviations (like \d for a digit), beginning and end of a document, disjunction `|`, and quantifiers like `?`, `*`, and `+`, among others. All these operators behave the same as in standard RegEx, and thus, REQL has backward compatibility for queries without capture variables. Then, a user can use REQL syntax as standard RegEx. 
 
@@ -65,9 +73,9 @@ This tutorial will cover all the operators displayed above through examples. We 
 
 If you're already familiar with RegEx operators 1. to 14., you might consider skipping ahead to the section on capture variables. However, we strongly recommend going through the entire tutorial. Even if you're an expert, this will give you a comprehensive understanding of how REQL and REmatch work, enhancing your overall learning experience. So, let's get started. 
 
-# Standard RegEx operators in REQL
+## Standard RegEx operators in REQL
 
-## Simple patterns 
+### Simple patterns 
 
 - `a`: character (UTF-8)
 - `ee`: concatenation
@@ -94,7 +102,7 @@ You can try this example [here](https://rematch.cl/?query=%21output%7Bgmail%7D&d
 
 **IMPORTANT**: For the rest of this section, forget about the clause `!output{...}` in the REQL examples. This operator is a capture variable, one of the main constructs of REQL for information extraction, and we will cover it in full detail in a while. This construct says: "When you find the word 'gmail,' capture it in the variable 'output'." Indeed, if you write 'gmail' without the clause `!output{...}`, this is a valid REQL query, but REmatch will only tell you `TRUE` or `FALSE`, depending on whether the substring gmail appears or not in the document, but without retrieving the positions of that substrings. For the following examples, we will maintain this clause  `!output{...}` in the queries to cover it later in the tutorial (after you are a master of RegEx operators in REQL). 
 
-## Any character and escape characters
+### Any character and escape characters
 
 - `.`: any character
 - `\.`: escape character
@@ -107,7 +115,7 @@ where the dot represents any symbol. By running this query, we will have the sam
 
 The above describes all the simple patterns to find a sequence of symbols within a string. But how can we define that we want to find a dot? Since the `.` is part of the REQL's syntax, we must use the escape symbol `\`. Thus, to find all emails of type 'gmail.com', we must write the pattern as `gmail\.com`. We must do the same to find symbols like `[`, `]`, or `^` that are part of the syntax of the REQL queries, like the symbols of other operators that we will see below.
 
-## Character sets
+### Character sets
 
 - `[S]`: character set
 - `[^S]`: negated set
@@ -120,7 +128,7 @@ The previous mailing list has now been reduced because we only want the ones wit
 
     !output{gm[^aeiou]il}
 
-## Disjunction and optional
+### Disjunction and optional
 
 - `e|e`: disjunction (alternation)
 - `(e)`: normal parentheses
@@ -138,7 +146,7 @@ Another way to choose between alternatives in RegEx (and REQL) is to use the opt
 
 where the `\.` is to declare a dot in the query (which must be escaped, as we explained before). Note that we can use the optional `?` over a simple pattern, or nest this operator on top of other operators. For example, if we also want the prefix 'ing.' may or may not appear, we can define this as `(ing\.)?p?uc` where the parentheses `( )` help us group the subpattern where the optional operator will be applied.
 
-## Repetitions and quantifiers
+### Repetitions and quantifiers
 
 - `e*`: zero-or-more
 - `e+`: one-or-more
@@ -156,7 +164,7 @@ The RegEx subpattern `[a-zA-Z]+` allows us to find one-or-more letters in an ema
 
     !output{@[a-zA-Z]{2,5}\.p?uc\.cl} 
 
-## Special character sets and special symbols
+### Special character sets and special symbols
 
 - `\w`: special character set 
 - `\n`: special symbols
@@ -184,9 +192,9 @@ Finally, REQL includes common special symbols to refer to a newline or a tab, wh
 
 We end this review of the main RegEx operators in REQL. We are ready to move on to the main novel feature of REQL: capture variables. 
 
-# Capturing variables
+## Capturing variables
 
-## Variables, matches, and spans
+### Variables, matches, and spans
 
 - `!var{e}`: capture variables
 
@@ -216,7 +224,7 @@ where `email` and `subdomain` are the new identifiers for `output` and `x`. Note
 
 When we run a REQL query over a document, REmatch returns all the **matches** of the query into the document. A match is an assignment of the variables to intervals of the document, also called **spans**. For instance, if we run the above query over our document in the REmatch web interface (try it [here](https://rematch.cl/?query=%21email%7B%40%21subdomain%7B%5Cw%2B%7D%5C.p%3Fuc%5C.cl%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiMatch=false)), we can see the four matches that REmatch retrieves on the right-hand side. Furthermore, each variable maps to a span in the document, namely, a pair of positions. For the first match (Match 0), we can see that `email` is mapped to the span (76-86) and `subdomain` to the span (77-80). Spans allow us to extract the document's content and also help us find the context where the information was found. 
 
-## Use and restrictions of variables
+### Use and restrictions of variables
 
 In REQL, one can use up to 32 variables in a single pattern. For instance, if we also want to capture the other subdomains in the same pattern, we can use more variables to capture them (try it [here](https://rematch.cl/?query=%21email%7B%40%21subdomain%7B%5Cw%2B%7D%5C.%21subdomain2%7Bp%3Fuc%7D%5C.%21subdomain3%7Bcl%7D%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiMatch=false)):
 
@@ -248,7 +256,7 @@ In general, one can put a variable in any place of the pattern for capturing a s
 
 In other words, (1) says that one cannot repeat the same variable over a sequence, (2) that the inputs for a disjunction need the same variable names, (3) that one cannot capture inside a repetition, a quantifier, or an optional, and (4) that variables only capture non-empty strings. If you test the examples that are NOT allowed in the REmatch web interface, you will see that the interface throws an error. These are natural restrictions that do not impose further limitations on information extraction. In case you still feel that these rules restrict the extraction process, we will later present in this tutorial the novel feature *multimatch* of REmatch where restrictions (1), (2), and (3) are relaxed for capturing a list of spans (another feature that standard RegEx does not support).
 
-## All matches and without duplicates
+### All matches and without duplicates
 
 A distinguished feature you have probably observed is that when REmatch runs a REQL query, it returns **ALL MATCHES** of the query. To test this, one can try the following REQL query in the REmatch web interface over our example document (try it [here](https://rematch.cl/?query=%21twoletters%7B%5Cw%5Cw%7D&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiMatch=false)):
 
@@ -277,7 +285,7 @@ where the same pattern is copied twice on the left- and right-hand side of a dis
 Retrieving **ALL MATCHES** and **WITHOUT DUPLICATES** poses no problem to REmatch regarding efficiency. Indeed, REmatch runs as fast as any standard RegEx engine and always looks for all matches. REmatch is based on the [framework of document spanners](https://dl.acm.org/doi/10.1145/2699442) and the theory of [constant-delay algorithms](https://dl.acm.org/doi/abs/10.1145/1276920.1276923) that have been developed in the last years. In a nutshell, the REmatch algorithm reads a document just once and takes a fixed amount of time (say `0.001ms`) to give you the next output. Of course, if the engine finds 1 million results, it will take you 1 second to get all of them, but no more than that. In fact, suppose the file has `1MB` of data, and we take 1ms to read the document. In that case, the algorithm will take `0.001ms` to give you the next result, regardless of whether it found ten or 10^10 outputs.
  
 
-## Specification of REQL queries under all matches
+### Specification of REQL queries under all matches
 
 As someone said: "With great power comes great responsibility". Now that REQL finds all matches, one has to be more careful when specifying some queries. For instance, if we want to capture all names of our email list (that is, the strings before the `@`), one is tempting to write:
 
@@ -291,7 +299,7 @@ So, how can we capture all names? Now that REmatch always finds all matches, we 
 
 This pattern is the same as before, but now we specify that it must start after a new line `\n`. One can check [here](https://rematch.cl/?query=%5Cn%21name%7B%5Cw%2B%7D%40&doc=cperez%40gmail.com%0Asoto%40uc.cl%0Asdelcampo%40gmail.com%0Alpalacios%40gmeil.com%0Apvergara%40ing.uc.cl%0Andelafuente%40ing.puc.cl%0Aldelgado%40gmsil.com%0Atnovoa%40mail.uc.cl%0Annarea%40myucmail.uc.cl%0Arramirez%40gmail.com%0Ajuansoto%40uc.cl&isMultiMatch=false) that this will give (almost) all names used in our list of emails. Although this requires a bit more work by being more specific, one usually gains clarity in the query on what is searching for extraction. 
 
-## The beginning and end of a document
+### The beginning and end of a document
 
 - `^`: beginning of document
 - `$`: end of document
@@ -306,11 +314,11 @@ Now that we have introduced all the REQL operators, we end by combining all that
 
     (\n|^)!name{\w+}@!domain{(\w+\.)+\w+}(\n|$)
 
-# Some practical REQL use cases
+## Some practical REQL use cases
 
 Now that we have introduced REQL, we present some real use cases where REmatch can make a difference. For more examples, see REmatch's example section [here](https://rematch.cl/examples). 
 
-## DNA sequences  
+### DNA sequences  
 
 Motif detection is a key task in DNA analysis. Motifs are represandented as a sequence pattern usually assumed to be related to biological functions. Indeed, RegEx has been extensively used to find motifs in DNA sequences, where the location of such matches is important to understand their impact on an organism. 
 
@@ -320,7 +328,7 @@ For this scenario, we show the advantage of using REmatch to find all motif matc
 
 We can evaluate this query with REmatch over the list of proteomes of the zebrafish organism [here](https://rematch.cl/?query=%21motif%7BG%5B%5EEDRKHPFYW%5D.%7B2%7D%5BSTAGCN%5D%5B%5EP%5D%7D&doc=%3EXP_017210497.1+glutamate+%5BNMDA%5D+receptor+subunit+epsilon-2+isoform+X1+%5BDanio+rerio%5D%0AMGVGLAMFKGLYLHSSAMLVSLHLSSSPFSDCRVLSFVSLVSSFKLPLYISLLLLSLFFFPTCESRRGGGIGTPTGGMNSQSIISPPHYPPPGVSPVGPPMSPKFAQGLSIAVILVGNSSEVSLSEGLEKEDFLHVPLPPKVELVTMNETDPKSIINRICALMSRNWLQGVVFGDDTDQEAIAQILDFISAQTHIPILGIRGGSSMIMAAKDDHSMFFQFGPSIEQQASVMLNIMEEYDWYIFSIVTTYYPGHQDFVNRIRSTVDNSFVGWELEEVLLLDMSVDDGDSKIQNQMKKLQSPVILLYCTKEEATTIFEVAHSVGLTGYGYTWIVPSLVAGDTDNVPNVFPTGLISVSYDEWDYGLEARVRDAVAIIAMATSTMMLDRGPHTLLKSGCHGAPDKKGSKSGNPNEVLRYLMNVTFEGRNLSFSEDGFQMHPKLVIILLNKERQYERVGKWENGSLAMKYHVWPRFELYSDAEEREDDHLSIVTLEEAPFVIVEDVDPLSGTCMRNTVPCRKQLKLQNLTGDSGIYIKRCCKGFCIDILKKIAKSVKFTYDLYLVTNGKHGKKINGTWNGMVGEVVLKNAHMAVGSLTINEERSEVIDFSVPFIETGISVMVSRSNGTVSPSAFLEPFSADVWVMMFVMLLIVSAVAVFVFEYFSPVGYNRCLADGREPGGPSFTIGKAIWLLWGLVFNNSVPVQNPKGTTSKIMVSVWAFFAVIFLASYTANLAAFMIQEEYVDQVTGLSDKKFQHPNDFSPPFRFGTVPNGSTERNIRNNYKEMHSYMTSFHQKNVNEALHSLKSGKLDAFIYDAAVLNYMAGRDEGCKLVTIGSGYIFATTGYGIAIQKDSGWKRAVDLAILQLFGDGEMEELEALWLTGICHNEKNEVMSSQLDVDNMAGVFYMLGAAMALSLITFIAEHLFYWQLRFCFMGVCSGKPGMTFSISRGIYSCIHGVQIEENKSALNSPSATMKMNMNNTHSNILRLLRTAKNMTSVPGVNGSPHSALDYSHRESAVYDISEHRRSLAGHSDCKPPPYLPEDNMFSDYVSEVERTFGNLHLKDSNLYQDHYLHHHGGSELALGMSGPLPNRPRSLGSASSLEGGYDCDSLGGGVAPIFTTQPRQSLTHRNREKFDLIAGHPTQSSFKSGLPDLYGKFSFKGGASSSGFIAGHDRYCGGGGVGSGGDDGNIRSDVSDISTHTVTYGNLEGHSKRRKQYRDSLKKRPASAKSRREQDEIELGFRRRPHHTIHHHHHHHPATQAHRSATPPVERKSQRGGNCTSYLFRDKENLRDFYVDQFRAKEGASPWDLDLSDAPGMGGGVGLGGGSCGGVVSSGGAGGACTSLVPMEDFLKGKSKKTECKGGMGGGSPGQQGHACWEKGIGGVGGLAGGDWECRSCHSGGVGSGGSKPVCMHGGGGAGGYPAAGGVGGSSGGSGQISSRPSSATCKRCDSCKKPGNLYDISEDNLLLDQIAGKHPLESGKGGGGTGAQTQVQRRKFGPGGKVLRRQHSYDTFVELQKEGAGRMGGFGGGGGASMLPPPRSVSLKDKDRYMEGASPYAQMFEQYAGGERETSYFGDRGKGGGSSFSLFRGGEGGLHRRSVGERDMRDRDRGMMGGGVGGTRGVGTYSLSKSLYPDKVNQNPFIPTFGDDQCLLHGAKSYYIKKQQAQPQQQQTPQQQQQQLLNNSRADFRGSMGVTSYLPASATSGVLSNVAPRFPKELCLGGPLGNHHGGGPSNNKLLSARDGLGMGQGQRPFNGSSNGHVYEKLSSIESDV&isMultiMatch=false).  It is interesting to verify that REmatch found overlapped matches, while other traditional RegEx engines or wrappers used for DNA analysis do not find these overlapped hits (without using lookaround).
 
-## Linguistic analysis 
+### Linguistic analysis 
 
 Corpus extraction and context analysis are relevant tasks for linguistic analysis, and together with computer science, they have reached big achievements in natural language processing. RegEx engines are a helpful tool for efficient information extraction, giving the possibility, for example, to obtain the context of certain words, morphemes, or any other linguistic object that one can define with regular expressions. 
 
@@ -331,9 +339,9 @@ In this context, suppose that a user wants to process English text into k-grams 
 where `w1` and `w2` variables store the positions of the first and second word, respectively, and `sent` stores the position of the sentence.
 The evaluation of this query over a fragment of the book "What is a man?" by Mark Twain can be checked [here](https://rematch.cl/?query=%28%5E%7C%28%5C.%29%29%21sent%7B%5B%5E.%5D*+%21w1%7B%5BAa%5D%5Cw%2B%7D+%21w2%7B%5BAa%5D%5Cw%2B%7D%28+%5B%5E.%5D*%29%3F%5C.%7D&doc=I+know+them+well.+They+are+extremes%2C+abnormals%3B+their+temperaments+are+as+opposite+as+the+poles.+Their+life-histories+are+about+alike+but+look+at+the+results.&isMultiMatch=false). Notice that finding all matches of `w1` and `w2` plus the context where they occur (i.e., the sentence) cannot be performed by traditional RegEx engines (here, lookaround will not help).
 
-# Multimatch capturing
+## Multimatch capturing
 
-## Motivation of using multimatch capturing
+### Motivation of using multimatch capturing
 
 REQL and RegEx are helpful languages for extracting information from unstructured data, like text, but sometimes they are not powerful enough for some tasks. Indeed, several times after extracting data with REQL or RegEx, we need to postprocess the output to find the real information we need. For example, this happens when we need to extract several fields but do not know how many in advance. Unfortunately, REQL (and also RegEx) only provides a fixed number of variables per query, and then, knowing the number of fields in advance is necessary to have several variables for extracting each field. 
 
@@ -357,7 +365,7 @@ Suppose we now want to extract all subdomains inside a domain for each email. Fo
 
 and postprocess each output (for example, with Python), splitting the subdomains by using the dot. Until now, this was the only solution that RegEx users had, which involved a third-party language like Python to concrete the task. Fortunately, we introduced the idea of **multimatch** in REQL, which allows us to extract a list of spans in each variable and provide a solution to these and more sophisticated use cases that usually appear in practice. 
 
-## Multimatch = list of spans
+### Multimatch = list of spans
 
 Roughly speaking, the idea of multimatch is that each variable stores a *list of spans*, instead of a single span (like it was traditionally in RegEx). For the subdomain use case above, a multimatch can have a variable `subdomains` that stores the list of spans for all the subdomains appearing in an e-mail, which could be two, three, or more. The list of spans is not bounded, and then, depending on the input, a user can capture more or fewer spans to iterate over them later. 
 
@@ -374,7 +382,7 @@ Recall that we banned these queries for "singlematch" REQL, and now they are val
 
 To truly grasp the power of multimatch capturing, let's move into some examples. These will demonstrate the consequences of leveraging each restriction of singlematch REQL, showing you the potential of multimatch in your programming tasks. 
 
-## Repeating variables in sequences
+### Repeating variables in sequences
 
 - `!x{e}!x{e}`: repeat variables in sequences
 
@@ -386,7 +394,7 @@ In this query, you'll notice that the variable `subdomains` is repeated three ti
 
 It's important to remember that this functionality is not available in singlematch REQL or any standard RegEx library. Note that to allow multimatch capturing in REmatch, one must press the **Multi** button at the right of the query box. Although multimatch is more powerful than singlematch capturing, this new power for information extraction is non-standard (no library implements multimatches), and users could feel confused in a first approach (think that already "capturing all matches" with REQL can be confusing). For this reason, users must explicitly say if they want to use multimatch capturing in REmatch's web interface and also in REmatch's libraries.
 
-## Using repetitions or quantifiers over variables
+### Using repetitions or quantifiers over variables
 
 - `!x{e}+`: use repetitions *one-or-more* over variables
 - `!x{e}*`: use repetitions *zero-or-more* over variables 
@@ -400,7 +408,7 @@ Note that in this query, we not only use the repetition of the variable `subdoma
 
 As you can expect, users can also use repetition zero-or-more or quantifiers for multmatch capturing. Similar than the example above, these operators increase the power of multimatch capturing for finding an unbounded number of spans. We invite the reader to try these operators by modifying the previous example and see their output. 
 
-## Using disjunctions or optionals over variables
+### Using disjunctions or optionals over variables
 
 - `!x{e}|!y{e}`: use different set of variables in disjunctions 
 - `!x{e}?`: use optional over variables
@@ -417,6 +425,6 @@ Finally, disjunction `|` provides a more general form of adding alternatives for
 
 One can see that the subquery `(!subdomain1{\w+}\.!subdomain2{\w+}|!subdomains{\w+})` does not respect the restrictions from singlematch REQL: the left-hand side of `|` uses variables `subdomain1` and `subdomain2`, and the right-hand side use just variable `subdomains`. The advantage here is that if the email has three subdomains, it will use the left-hand side, and if it has two, it will use the right-hand side. Note that variables will capture different spans depending on the number of subdomains. 
 
-## More examples for multimatch capturing
+### More examples for multimatch capturing
 
 To see other uses of multimatch capturing, we refer to our section of examples [here](https://rematch.cl/examples), where one can find practical use cases of multimatch capturing marked with the tag `MultiMatch`.

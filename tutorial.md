@@ -2,7 +2,7 @@
 
 What is the motivation for learning and using REQL? How does REQL relate to RegEx patterns? What are the new features of REmatch compared to standard RegEx engines? 
 
-This tutorial will teach you how to use **REQL** (Regular Expression Query Language) in REmatch's web interface. We start this tutorial by showing some motivation for learning and using REQL. After this motivation, we go into REQL, beginning with a brief overview of the operators and their relation to RegEx patterns. 
+This tutorial will teach you how to use **REQL** (Regular Expressions Query Language) in REmatch's web interface. We start this tutorial by showing some motivation for learning and using REQL. After this motivation, we go into REQL, beginning with a brief overview of the operators and their relation to RegEx patterns. 
 
 We divide the technical content of this tutorial into three parts: (1) learning RegEx operators in REQL, (2) learning how to use variables in REQL and capture all matches, and (3) learning how to use multimatch capturing. If you are familiar with RegEx patterns, you can move directly to parts (2) and (3) to learn the new features of REmatch compared to standard RegEx engines. 
 

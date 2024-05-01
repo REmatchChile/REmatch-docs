@@ -182,25 +182,25 @@
   "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'output' and the substring '_' in variable 'x'."
 },
 {
-  "query": "!email{@!domain{\\w+}\\.p?uc\\.cl}",
+  "query": "!email{@!subdomain{\\w+}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E11: Use of capture variable names",
   "isMultiMatch": false,
-  "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and the substring '_' in variable 'domain'."
+  "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and the substring '_' in variable 'subdomain'."
 },
 {
-  "query": "!email{@!domain{\\w+}\\.!domain2{p?uc}\\.!domain3{cl}}",
+  "query": "!email{@!subdomain{\\w+}\\.!subdomain2{p?uc}\\.!subdomain3{cl}}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E12: Use of more capture variables in a single pattern",
   "isMultiMatch": false,
   "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and all the substrings using more variables."
 },
 {
-  "query": "@!domain{\\w+}\\.p?uc\\.cl",
+  "query": "@!subdomain{\\w+}\\.p?uc\\.cl",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E13: No capture variable in the whole pattern",
   "isMultiMatch": false,
-  "description": "Find the substrings '@_.uc.cl' or '@_.puc.cl' but only capture _ in the variable 'domain'."
+  "description": "Find the substrings '@_.uc.cl' or '@_.puc.cl' but only capture _ in the variable 'subdomain'."
 },
 {
   "query": "!twoletters{\\w\\w}",
@@ -233,8 +233,15 @@
 {
   "query": "(\\n|^)!name{\\w+}@!domain{(\\w+\\.)+\\w+}(\\n|$)",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
-  "title": "[Tutorial example] E18: All names and domains",
+  "title": "[Tutorial example] E18: All pairs of name and domain",
   "isMultiMatch": false,
   "description": "Extract all names and domains from an email list."
+},
+{
+  "query": "@!subdomains{\w+}\.!subdomains{\w+}\.!subdomains{\w+}(\n|$)",
+  "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
+  "title": "[Tutorial example] E19: All subdomains in one variable",
+  "isMultiMatch": true,
+  "description": "Extract all subdomains of an e-mail in a single variable."
 }
 ]

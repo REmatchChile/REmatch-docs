@@ -46,7 +46,7 @@ REmatch goes even beyond the capabilities of any RegEx library by introducing th
 
 To briefly exemplify the power of multimatch, suppose that we want to extract all sentences from our document and all its words for each sentence. We can do this task by using REQL and multimatch as follows:
 
-    (^|\.)!sentence{[^.]*\W!words{\w+}\W[^.]*\.}
+    (^|\. )!sentence{(!words{[A-Za-z']+}[^A-Za-z'.]+)*!words{[A-Za-z']+}\.}
 
 In this query, we allow using variables inside repetitions `+`, which intuitively means that we want to capture one or more words in the variable `words.` By running this query in REmatch's web interface (try it [here]), you can see that now each output contains a sentence, and the variable word contains all its words. 
 

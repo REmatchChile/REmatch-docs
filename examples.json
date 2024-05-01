@@ -49,6 +49,13 @@
   "description": "Extract each pair of proper nouns, together with the sentence in which they appear."
 },
 {
+  "query": "(^|\\. )!sentence{(!words{[A-Za-z']+}[^A-Za-z'.]+)*!words{[A-Za-z']+}\\.}",
+  "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
+  "title": "[Literature] All sentences and all words",
+  "isMultiMatch": true,
+  "description": "Extract all sentences together with all its words"
+},
+{
   "query": "(^| )!words{(\\w|[\\-'])+}( !words{(\\w|[\\-'])+}){K}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] All k-grams",

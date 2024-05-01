@@ -2,35 +2,35 @@
 { 
   "query": "!date{\\d{4}-\\d{2}-\\d{2}}T!time{\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?}!timezone{(Z|[+\\-]\\d{2}:\\d{2})}",
   "doc": "2024-03-21T13:45:30.500Z\\n2023-01-01T00:00:00Z\\n2025-12-10T08:30:45.250+05:30\\n2022-10-15T18:20:00+02:00\\n2027-06-30T23:59:60.750Z\\n2030-06-30T23:59:60Z\\n2026-11-05T00:00:00Z\\n2028-08-20T00:00:00-07:00\\n2035-04-01T12:30:00Z\\n2019-07-07T07:15:30+08:00\\n",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "title": "[Log files] RFC3339 DateTime",
   "description": "Capture the parts of dates in RFC3339 DateTime format. Does not validates the data."
 },
 { 
   "query": "!key{\"\\w+\"}\\s*:\\s*!value{\"(([^\"\\\\]|\\\\.)* )?!noun{[A-Z][A-Za-z]*}(\\.|\"|\\s([^\"\\\\]|\\\\.)*\")}",
   "doc": "{\\n    \"glossary\": {\\n        \"title\": \"Example glossary\",\\n        \"GlossDiv\": {\\n            \"title\": \"S\",\\n            \"GlossList\": {\\n                \"GlossEntry\": {\\n                    \"ID\": \"SGML\",\\n                    \"SortAs\": \"SGML\",\\n                    \"GlossTerm\": \"Standard Generalized Markup Language\",\\n                    \"Acronym\": \"SGML\",\\n                    \"Abbrev\": \"ISO 8879:1986\",\\n                    \"GlossDef\": {\\n                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\\n                        \"GlossSeeAlso\": [\"GML\", \"XML\"]\\n                    },\\n                    \"GlossSee\": \"markup\"\\n                }\\n            }\\n        }\\n    }\\n}",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "title": "[JSON] Nouns inside key-value pairs",
   "description": "Extract all key-value pairs where the value is a string and has a noun."
 },
 { 
   "query": "(public|private)\\s+\\w+\\s+!fun{\\w+}\\((!attr{[^,)]+}(, !attr{[^,)]+})*)?\\)",
   "doc": "public class Game\\n{\\n    public readonly Deck deck;\\n    public readonly Card card;\\n    private readonly List<Player> players;\\n \\n    public void Play1(Player p1, Card card) {\\n        players.Add(p1);\\n        this.card = card;\\n    }\\n    public void Play2(Player p1, Player p2, Card card) {\\n        players.Add(p1);\\n        players.Add(p2);\\n        this.card = card;\\n    }\\n    public void Play() {\\n        card = null;\\n    }\\n}",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "title": "[Code] All functions and its parameters",
   "description": "Extract all functions of a C# class plus all its parameters."
 },
 { 
   "query": "(public|private)\\s+\\w+\\s+!fun{\\w+}\\(([^,)]+,){2,}[^,)]+\\)",
   "doc": "public class Game\\n{\\n    public readonly Deck deck;\\n    public readonly Card card;\\n    private readonly List<Player> players;\\n \\n    public void Play1(Player p1, Card card) {\\n        players.Add(p1);\\n        this.card = card;\\n    }\\n    public void Play2(Player p1, Player p2, Card card) {\\n        players.Add(p1);\\n        players.Add(p2);\\n        this.card = card;\\n    }\\n    public void Play() {\\n        card = null;\\n    }\\n}",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "title": "[Code] All functions with three or more parameters",
   "description": "Extract all functions of a C# class plus that have three or more parameters."
 },
 {
   "query": "^!line{!word{[^\\s]+}( !word{[^\\s]+})+}(\\n+!line{!word{[^\\s]+}( !word{[^\\s]+})+})*$(\\n|$)",
   "doc": "Puro, Chile, es tu cielo azulado,\\npuras brisas te cruzan también,\\ny tu campo de flores bordado\\nes la copia feliz del Edén.\\nMajestuosa es la blanca montaña\\nque te dio por baluarte el Señor,\\nque te dio por baluarte el Señor,\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\nY ese mar que tranquilo te baña\\nte promete futuro esplendor.\\n\\nDulce Patria, recibe los votos\\nCon que Chile en tus aras juró\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión\\nQue o la tumba serás de los libres\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.\\nO el asilo contra la opresión.",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "title": "[Miscellaneous] Chile's national anthem",
   "description": "Match the lines and their words of the national anthem of Chile."
 },
@@ -38,203 +38,203 @@
   "query": "(^|\\.)!sentence{[^.]*!noun{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] Proper nouns in sentences",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract each proper noun, together with the sentence in which it appears."
 },
 {
   "query": "(^|\\.)!sentence{[^.]*!noun1{[A-Z][a-z]*} [^.]*!noun2{[A-Z][a-z]*}( [^.]*)?\\.}",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] Pair of proper nouns in sentences",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract each pair of proper nouns, together with the sentence in which they appear."
 },
 {
   "query": "(^| )!words{(\\w|[\\-'])+}( !words{(\\w|[\\-'])+}){K}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] All k-grams",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "description": "Extract all the k-grams from the text (replace the parameter K with a number)."
 },
 {
   "query": "(^| )!words{(\\w|[\\-'])+} !words{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] All 2-grams",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "description": "Extract all the 2-grams from the text."
 },
 {
   "query": "(^| )!word{(\\w|[\\-'])+}([ ,.])",
   "doc": "You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer but that ain't no matter. That book was made by Mr Mark Twain and he told the truth, mainly. There was things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly or the widow, or maybe Mary. Aunt Polly-Tom's Aunt Polly, she is-and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.",
   "title": "[Literature] Get all words",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all the words from the text."
 },
 {
   "query": "(^|(\\.))!sent{[^.]* !w1{[Aa]\\w+} !w2{[Aa]\\w+}( [^.]*)?\\.}",
   "doc": "I know them well. They are extremes, abnormals; their temperaments are as opposite as the poles. Their life-histories are about alike but look at the results.",
   "title": "[Literature] 2-grams starting with 'a' and the sentence",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all 2-grams and the sentence where each word begins with the letter 'a'."
 },
 {
   "query": "(\\n)!line{[^\"\\n]*!text{\"[^\"]+\"}([^\"\\n]*!text{\"[^\"]+\"})*[^\"\\n]*}(\\n|$)",
   "doc": "\"LatD\", \"LatM\", \"LatS\", \"NS\", \"LonD\", \"LonM\", \"LonS\", \"EW\", \"City\", \"State\"\\n41,    5,   59, \"N\",     80,   39,    0, \"W\", \"Youngstown\", OH\\n42,   52,   48, \"N\",     97,   23,   23, \"W\", \"Yankton\", SD\\n46,   35,   59, \"N\",    120,   30,   36, \"W\", \"Yakima\", WA\\n42,   16,   12, \"N\",     71,   48,    0, \"W\", \"Worcester\", MA\\n43,   37,   48, \"N\",     89,   46,   11, \"W\", \"Wisconsin Dells\", WI\\n36,    5,   59, \"N\",     80,   15,    0, \"W\", \"Winston-Salem\", NC\\n49,   52,   48, \"N\",     97,    9,    0, \"W\", \"Winnipeg\", MB\\n39,   11,   23, \"N\",     78,    9,   36, \"W\", \"Winchester\", VA\\n34,   14,   24, \"N\",     77,   55,   11, \"W\", \"Wilmington\", NC\\n39,   45,    0, \"N\",     75,   33,    0, \"W\", \"Wilmington\", DE\\n48,    9,    0, \"N\",    103,   37,   12, \"W\", \"Williston\", ND\\n41,   15,    0, \"N\",     77,    0,    0, \"W\", \"Williamsport\", PA\\n37,   40,   48, \"N\",     82,   16,   47, \"W\", \"Williamson\", WV\\n33,   54,    0, \"N\",     98,   29,   23, \"W\", \"Wichita Falls\", TX\\n37,   41,   23, \"N\",     97,   20,   23, \"W\", \"Wichita\", KS",
   "title": "[CSV] String fields and lines",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "description": "Extract all strings fields of each line."
 },
 {
   "query": "(\\n)!line{ *!field{\\S[^,\\n]*}(, *!field{\\S[^,\\n]*})*}(\\n|$)",
   "doc": "\"LatD\", \"LatM\", \"LatS\", \"NS\", \"LonD\", \"LonM\", \"LonS\", \"EW\", \"City\", \"State\"\\n41,    5,   59, \"N\",     80,   39,    0, \"W\", \"Youngstown\", OH\\n42,   52,   48, \"N\",     97,   23,   23, \"W\", \"Yankton\", SD\\n46,   35,   59, \"N\",    120,   30,   36, \"W\", \"Yakima\", WA\\n42,   16,   12, \"N\",     71,   48,    0, \"W\", \"Worcester\", MA\\n43,   37,   48, \"N\",     89,   46,   11, \"W\", \"Wisconsin Dells\", WI\\n36,    5,   59, \"N\",     80,   15,    0, \"W\", \"Winston-Salem\", NC\\n49,   52,   48, \"N\",     97,    9,    0, \"W\", \"Winnipeg\", MB\\n39,   11,   23, \"N\",     78,    9,   36, \"W\", \"Winchester\", VA\\n34,   14,   24, \"N\",     77,   55,   11, \"W\", \"Wilmington\", NC\\n39,   45,    0, \"N\",     75,   33,    0, \"W\", \"Wilmington\", DE\\n48,    9,    0, \"N\",    103,   37,   12, \"W\", \"Williston\", ND\\n41,   15,    0, \"N\",     77,    0,    0, \"W\", \"Williamsport\", PA\\n37,   40,   48, \"N\",     82,   16,   47, \"W\", \"Williamson\", WV\\n33,   54,    0, \"N\",     98,   29,   23, \"W\", \"Wichita Falls\", TX\\n37,   41,   23, \"N\",     97,   20,   23, \"W\", \"Wichita\", KS",
   "title": "[CSV] Fields without spaces and line",
-  "isMultiRegex": true,
+  "isMultiMatch": true,
   "description": "Extract all fields of each line without the aligning spaces."
 },
 {
   "query": "!motif{F.{10}RE.{72,86}RD.K.{9}[CS]}",
   "doc": ">XP_024849117.1 mitogen-activated protein kinase 10 isoform X5 [Bos taurus]\\nMSKSKVDNQFYSVEVGDSTFTVLKRYQNLKPIGSGAQGIVCAAYDAVLDRNVAIKKLSRPFQNQTHAKRAYRELVLMKCVNHKNIISLLNVFTPQKTLEEFQDVYLVMELMDANLCQVIQMELDHERMSYLLYQMLCGIKHLHSAGIIHRDLKPSNIVVKSDCTLKILDFGLARTAGTSFMMTPYVVTRYYRAPEVILGMGYKENVDIWSVGCIMGEMVRHKILFPGRDYIDQWNKVIEQLGTPCPEFMKKLQPTVRNYVENRPKYAGLTFPKLFPDSLFPADSEHNKLKASQARDLLSKMLVIDPAKRISVDDALQHPYINVWYDPAEVEAPPPQIYDKQLDEREHTIEEWKELIYKEVMNSEEKTKNGVVKGQPSPSAQVQP",
   "title": "[DNA] Motif search of a MAP kinase signature",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "A motif search for a MAP kinase signature."
 },
 {
   "query": "!motif{G[^EDRKHPFYW].{2}[STAGCN][^P]}",
   "doc": ">XP_017210497.1 glutamate [NMDA] receptor subunit epsilon-2 isoform X1 [Danio rerio]\\nMGVGLAMFKGLYLHSSAMLVSLHLSSSPFSDCRVLSFVSLVSSFKLPLYISLLLLSLFFFPTCESRRGGGIGTPTGGMNSQSIISPPHYPPPGVSPVGPPMSPKFAQGLSIAVILVGNSSEVSLSEGLEKEDFLHVPLPPKVELVTMNETDPKSIINRICALMSRNWLQGVVFGDDTDQEAIAQILDFISAQTHIPILGIRGGSSMIMAAKDDHSMFFQFGPSIEQQASVMLNIMEEYDWYIFSIVTTYYPGHQDFVNRIRSTVDNSFVGWELEEVLLLDMSVDDGDSKIQNQMKKLQSPVILLYCTKEEATTIFEVAHSVGLTGYGYTWIVPSLVAGDTDNVPNVFPTGLISVSYDEWDYGLEARVRDAVAIIAMATSTMMLDRGPHTLLKSGCHGAPDKKGSKSGNPNEVLRYLMNVTFEGRNLSFSEDGFQMHPKLVIILLNKERQYERVGKWENGSLAMKYHVWPRFELYSDAEEREDDHLSIVTLEEAPFVIVEDVDPLSGTCMRNTVPCRKQLKLQNLTGDSGIYIKRCCKGFCIDILKKIAKSVKFTYDLYLVTNGKHGKKINGTWNGMVGEVVLKNAHMAVGSLTINEERSEVIDFSVPFIETGISVMVSRSNGTVSPSAFLEPFSADVWVMMFVMLLIVSAVAVFVFEYFSPVGYNRCLADGREPGGPSFTIGKAIWLLWGLVFNNSVPVQNPKGTTSKIMVSVWAFFAVIFLASYTANLAAFMIQEEYVDQVTGLSDKKFQHPNDFSPPFRFGTVPNGSTERNIRNNYKEMHSYMTSFHQKNVNEALHSLKSGKLDAFIYDAAVLNYMAGRDEGCKLVTIGSGYIFATTGYGIAIQKDSGWKRAVDLAILQLFGDGEMEELEALWLTGICHNEKNEVMSSQLDVDNMAGVFYMLGAAMALSLITFIAEHLFYWQLRFCFMGVCSGKPGMTFSISRGIYSCIHGVQIEENKSALNSPSATMKMNMNNTHSNILRLLRTAKNMTSVPGVNGSPHSALDYSHRESAVYDISEHRRSLAGHSDCKPPPYLPEDNMFSDYVSEVERTFGNLHLKDSNLYQDHYLHHHGGSELALGMSGPLPNRPRSLGSASSLEGGYDCDSLGGGVAPIFTTQPRQSLTHRNREKFDLIAGHPTQSSFKSGLPDLYGKFSFKGGASSSGFIAGHDRYCGGGGVGSGGDDGNIRSDVSDISTHTVTYGNLEGHSKRRKQYRDSLKKRPASAKSRREQDEIELGFRRRPHHTIHHHHHHHPATQAHRSATPPVERKSQRGGNCTSYLFRDKENLRDFYVDQFRAKEGASPWDLDLSDAPGMGGGVGLGGGSCGGVVSSGGAGGACTSLVPMEDFLKGKSKKTECKGGMGGGSPGQQGHACWEKGIGGVGGLAGGDWECRSCHSGGVGSGGSKPVCMHGGGGAGGYPAAGGVGGSSGGSGQISSRPSSATCKRCDSCKKPGNLYDISEDNLLLDQIAGKHPLESGKGGGGTGAQTQVQRRKFGPGGKVLRRQHSYDTFVELQKEGAGRMGGFGGGGGASMLPPPRSVSLKDKDRYMEGASPYAQMFEQYAGGERETSYFGDRGKGGGSSFSLFRGGEGGLHRRSVGERDMRDRDRGMMGGGVGGTRGVGTYSLSKSLYPDKVNQNPFIPTFGDDQCLLHGAKSYYIKKQQAQPQQQQTPQQQQQQLLNNSRADFRGSMGVTSYLPASATSGVLSNVAPRFPKELCLGGPLGNHHGGGPSNNKLLSARDGLGMGQGQRPFNGSSNGHVYEKLSSIESDV", 
   "title": "[DNA] Motif search in zebrafish",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "N-myristoylation site motif inside a sequence of a glutamate [NMDA] receptor subunit epsilon-2 isoform X1 protein of zebrafish."
 },
 {
   "query": "(^|[\\n.])!sentence{[^.\\n]*Chile[^.\\n]*(Peru|Argentina|Bolivia)[^.\\n]*\\.}",
   "doc": "Chile, officially the Republic of Chile, is a country in western South America. It is the southernmost country in the world and the closest to Antarctica, stretching along a narrow strip of land between the Andes Mountains and the Pacific Ocean. With an area of 756,102 square kilometers (291,933 sq mi) and a population of 17.5 million as of 2017, Chile shares borders with Peru to the north, Bolivia to the northeast, Argentina to the east, and the Drake Passage to the south. The country also controls several Pacific islands, including Juan Fernández, Isla Salas y Gómez, Desventuradas, and Easter Island, and claims about 1,250,000 square kilometers (480,000 sq mi) of Antarctica as the Chilean Antarctic Territory. The capital and largest city of Chile is Santiago, and the national language is Spanish.\\nSpain conquered and colonized the region in the mid-16th century, replacing Inca rule, but failed to conquer the independent Mapuche people who inhabited what is now south-central Chile. Chile emerged as a relatively stable authoritarian republic in the 1830s after their 1818 declaration of independence from Spain. During the 19th century, Chile experienced significant economic and territorial growth, putting an end to Mapuche resistance in the 1880s and gaining its current northern territory in the War of the Pacific (1879–83) by defeating Peru and Bolivia. In the 20th century, up until the 1970s, Chile underwent a process of democratization and experienced rapid population growth and urbanization, while relying increasingly on exports from copper mining to support its economy. During the 1960s and 1970s, the country was marked by severe left-right political polarization and turmoil, which culminated in the 1973 Chilean coup d'état that overthrew Salvador Allende's democratically elected left-wing government. This was followed by a 16-year right-wing military dictatorship under Augusto Pinochet, which resulted in more than 3,000 deaths or disappearances. The regime ended in 1990, following a referendum in 1988, and was succeeded by a center-left coalition, which ruled until 2010.\\nChile has a high-income economy and is one of the most economically and socially stable nations in South America, leading Latin America in competitiveness, per capita income, globalization, peace, and economic freedom. Chile also performs well in the region in terms of sustainability of the state and democratic development, and boasts the second lowest homicide rate in the Americas, following only Canada. Chile is a founding member of the United Nations, the Community of Latin American and Caribbean States (CELAC), and the Pacific Alliance, and joined the OECD in 2010.",
   "title": "[Wikipedia] Sentences from Chile Wikipedia article",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all sentences from Chile Wikipedia article that first mention Chile and then one of its neighboring countries."
 },
 {
   "query": "!output{gmail}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E01: Simple sequence",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'gmail' in a list of e-mails."
 },
 {
   "query": "!output{gm.il}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E02: Any character",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'gm?il' in a list of e-mails where the third letter could be any letter."
 },
 {
   "query": "!output{gm[aeiou]il}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E03: Character set",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter could be any vowel."
 },
 {
   "query": "!output{gm[^aeiou]il}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E04: Negated character set",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'gm_il' in a list of e-mails where the third letter is not a vowel."
 },
 {
   "query": "!output{gmail|uc}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E05: Disjunction",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'gmail' or 'uc' in a list of e-mails."
 },
 {
   "query": "!output{ing\\.p?uc}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E06: Optional",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings 'ing.puc' or 'ing.uc' in a list of e-mails."
 },
 {
   "query": "!output{@[a-zA-Z]+\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E07: Repetition",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' where _ can contain any string of one or more letters."
 },
 {
   "query": "!output{@[a-zA-Z]{2,5}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E08: Quantifier",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' where _ can contain any string of two to five letters."
 },
 {
   "query": "!output{@\\w+\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E09: Special character set",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings '@_.uc.cl' or '@_.puc.cl' by using the special character set \\w."
 },
 {
   "query": "!output{@!x{\\w+}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E10: Use of capture variables",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'output' and the substring '_' in variable 'x'."
 },
 {
   "query": "!email{@!domain{\\w+}\\.p?uc\\.cl}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E11: Use of capture variable names",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and the substring '_' in variable 'domain'."
 },
 {
   "query": "!email{@!domain{\\w+}\\.!domain2{p?uc}\\.!domain3{cl}}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E12: Use of more capture variables in a single pattern",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract the substrings '@_.uc.cl' or '@_.puc.cl' in variable 'email' and all the substrings using more variables."
 },
 {
   "query": "@!domain{\\w+}\\.p?uc\\.cl",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E13: No capture variable in the whole pattern",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Find the substrings '@_.uc.cl' or '@_.puc.cl' but only capture _ in the variable 'domain'."
 },
 {
   "query": "!twoletters{\\w\\w}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E14: All two letters",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all appearances of two letters."
 },
 {
   "query": "!substring{\\w+}",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E15: All substrings",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all substrings."
 },
 {
   "query": "\\n!name{\\w+}@",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E16: (Almost) all names",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all names except from the first one."
 },
 {
   "query": "(\\n|^)!name{\\w+}@",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E17: All names",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all names including the first one."
 },
 {
   "query": "(\\n|^)!name{\\w+}@!domain{(\\w+\\.)+\\w+}(\\n|$)",
   "doc": "cperez@gmail.com\\nsoto@uc.cl\\nsdelcampo@gmail.com\\nlpalacios@gmeil.com\\npvergara@ing.uc.cl\\nndelafuente@ing.puc.cl\\nldelgado@gmsil.com\\ntnovoa@mail.uc.cl\\nnnarea@myucmail.uc.cl\\nrramirez@gmail.com\\njuansoto@uc.cl",
   "title": "[Tutorial example] E18: All names and domains",
-  "isMultiRegex": false,
+  "isMultiMatch": false,
   "description": "Extract all names and domains from an email list."
 }
 ]

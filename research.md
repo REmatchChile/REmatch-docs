@@ -1,4 +1,4 @@
-# REmatch research literature
+# Research literature on REmatch
 
 **REmatch** is based on the framework of document spanners and on the theory of constant-delay algorithms developed over the last decade. Below, you can find some literature related to these and other research topics to learn more about research related to REmatch. 
 

@@ -33,7 +33,7 @@ Antoine Amarilli, Benny Kimelfeld, Sébastien Labbé, and Stefan Mengel. At ICDT
 - [A Framework for Extraction and Transformation of Documents](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICDT.2025.18). 
 Cristian Riveros, Markus L. Schmid, and Nicole Schweikardt. At ICDT 2025.
 
-## Some research on efficient evaluation and constant delay algorithms
+## Some research on efficient evaluation 
 
 - [Efficient Enumeration Algorithms for Regular Document Spanners](https://dl.acm.org/doi/10.1145/3351451). 
 Fernando Florenzano, Cristian Riveros, Martín Ugarte, Stijn Vansummeren, and Domagoj Vrgoc. In TODS 2020.

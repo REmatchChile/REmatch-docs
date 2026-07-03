@@ -24,3 +24,6 @@ We thank the following participants for their contributions in an early stage of
 - **Ignacio Pereira**: former student at PUC, Chile.
 - **Javier Montoya**: former student at PUC, Chile.
 - **Patricia Silva**: former student at PUC, Chile.
+- **Valentina Silva**: former student at PUC, Chile.
+- **Gloria Verena**: former student at PUC, Chile.
+

@@ -16,10 +16,11 @@ The library is open source under the MIT License, and the code is available [her
 We thank the following participants for their contributions in an early stage of the project.
 
 - **Nicolás Van Sint Jan**: former Master student at PUC, Chile.
-- **Kyle Bossonney**: former student at PUC, Chile.
+- **Goerkem Arslanogullari**: former student at Humboldt University, Berlin.
 - **Marjorie Bascuñán**: former student at PUC, Chile.
+- **Kyle Bossonney**: former student at PUC, Chile.
 - **Oscar Cárcamo**: former student at PUC, Chile.
 - **Martín de la Fuente**: former student at PUC, Chile.
 - **Ignacio Pereira**: former student at PUC, Chile.
 - **Javier Montoya**: former student at PUC, Chile.
-- **Goerkem Arslanogullari**: former student at Humboldt University, Berlin.
+- **Patricia Silva**: former student at PUC, Chile.
